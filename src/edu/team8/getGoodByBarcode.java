@@ -38,12 +38,14 @@ public class GetGoodByBarcode {
             Good result=null;
             sql="SELECT * FROM item WHERE barcode='"+barcodeString+"'";
             resultList = sqlStatement.executeQuery(sql);
-            String barcode = resultList.getString("barcode");
-            String name = resultList.getString("barcode");
-            String unit = resultList.getString("barcode");
-            float price = resultList.getString("barcode");
-            System.out.println(resultList.findColumn("id"));
-            return result;
+            if(resultList.next()) {
+                String barcode = resultList.getString("barcode");
+                String name = resultList.getString("name");
+                String unit = resultList.getString("unit");
+                double price = resultList.getDouble("price");
+                System.out.println(new Good(barcode, name, unit, price));
+                return result;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

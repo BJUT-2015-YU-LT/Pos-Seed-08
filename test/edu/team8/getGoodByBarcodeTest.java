@@ -17,6 +17,6 @@ public class getGoodByBarcodeTest {
     public void testFind()
     {
         GetGoodByBarcode e = new GetGoodByBarcode();
-        e.findByBarcode("ITEM00000");
+        e.findByBarcode("ITEM0001");
     }
 }

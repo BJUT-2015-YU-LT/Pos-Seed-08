@@ -50,6 +50,6 @@ public class Good {
 
     @Override
     public String toString() {
-        return "Good{[barcode:"+barcode+"][name:"+name+"][unit"+unit+"][price"+price+"]}";
+        return "Good{[barcode:"+barcode+"][name:"+name+"][unit:"+unit+"][price:"+price+"]}";
     }
 }
