@@ -48,5 +48,8 @@ public class Good {
         this.unit = unit;
     }
 
-
+    @Override
+    public String toString() {
+        return "Good{[barcode:"+barcode+"][name:"+name+"][unit"+unit+"][price"+price+"]}";
+    }
 }
