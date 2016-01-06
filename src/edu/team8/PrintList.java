@@ -10,7 +10,7 @@ public class PrintList {
     public PrintList() {
     }
     public void PrintGoodList(){
-        int sum=0;                          //总价
+        double sum=0;                          //总价
         System.out.println("***商店购物小票清单***");
         ArrayList<GoodExtends> xiaoyu=new ArrayList<GoodExtends>();
         for(GoodExtends ge:xiaoyu)

@@ -8,9 +8,9 @@ public class Good {
     protected String barcode;
     protected String name;
     protected String unit;
-    protected float price;
+    protected double price;
 
-    public Good(String barcode, String name, String unit, float price) {
+    public Good(String barcode, String name, String unit, double price) {
         this.barcode = barcode;
         this.name = name;
         this.unit = unit;
@@ -29,7 +29,7 @@ public class Good {
     {
         return this.unit;
     }
-    public float getPrice()
+    public double getPrice()
     {
         return this.price;
     }
