@@ -3,9 +3,9 @@ import java.sql.*;
 /**
  * Created by 知昊 on 2016/1/6.
  */
-public class getGoodByBarode {
+public class getGoodByBarcode {
 
-    public getGoodByBarode() {
+    public getGoodByBarcode() {
         Connection sqlConnect;
     }
 }
