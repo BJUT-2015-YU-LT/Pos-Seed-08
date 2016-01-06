@@ -9,6 +9,9 @@ public class Good {
     protected String name;
     protected String unit;
     protected double price;
+    /*
+    因需求 2 添加
+     */
 
     public Good(String barcode, String name, String unit, double price) {
         this.barcode = barcode;

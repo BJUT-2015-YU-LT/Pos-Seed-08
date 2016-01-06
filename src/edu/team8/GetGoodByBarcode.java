@@ -2,18 +2,24 @@ package edu.team8;
 import edu.team8.classes.Good;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 /**
  * Created by 知昊 on 2016/1/6.
  */
 public class GetGoodByBarcode {
+    //SQL地址
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
             "?user=qdm169548131&password=ssXYZ379&useUnicode=true&characterEncoding=UTF8";
 
-    private ResultSet resultList;
-    private static String sql;
-    private Connection sqlConnect;
-    private Statement sqlStatement;
+    //SQL语句
+    private String sql;
+    private ResultSet resultList;       //结果列表
+    private Connection sqlConnect;      //SQL链接
+    private Statement sqlStatement;     //SQL命令发送器?
 
+
+    //数据库连接函数
     public GetGoodByBarcode() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -32,6 +38,7 @@ public class GetGoodByBarcode {
         }
     }
 
+    //根据条码找商品
     public Good findByBarcode(String barcodeString)
     {
         try {
@@ -50,5 +57,31 @@ public class GetGoodByBarcode {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //根据条码列表生成商品列表
+    public ArrayList<Good> getItemInfo(String[] barcodeStrings)
+    {
+        if(barcodeStrings.length==0)
+            return null;
+        ArrayList<Good> goodArrayList = new ArrayList<Good>();
+        for(String barcode:barcodeStrings)
+        {
+            Good finded=findByBarcode(barcode);
+            if(finded!=null)
+                goodArrayList.add(finded);
+            else
+            {
+                System.out.println("检索不到条码["+barcode+"]的信息, 请于管理员联系");
+            }
+        }
+        return goodArrayList;
+    }
+
+    public static ArrayList<Good> makeGoodList(String barcodes)
+    {
+        GetGoodByBarcode getGoodConnect = new GetGoodByBarcode();
+        ArrayList<Good> result = getGoodConnect.getItemInfo(barcodes.split(","));
+        return  result;
     }
 }
