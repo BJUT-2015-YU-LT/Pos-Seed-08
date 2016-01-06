@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  * Created by 帅 on 2016/1/6.
  */
 public class BarcodeScanner extends JFrame implements ActionListener {
+    private String barcodeText;
 
     private JPanel westPanel;
     private JPanel centerPanel;
@@ -33,6 +34,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
     public BarcodeScanner(String sss) {
         super(sss);
+        barcodeText = new String();
 
         init();//窗口初始化
 
@@ -50,56 +52,80 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         eastPanel=new JPanel(new GridLayout(1,1));
 
         jta=new JTextArea();
-        jta.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.BLUE));
+        jta.setEditable(false);
+        jta.setBorder (BorderFactory.createTitledBorder ("已扫描商品"));
+        jta.add (new JLabel ("标题边框"));
         centerPanel.add(jta);
 
         jta2=new JTextArea();
-        jta2.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.GREEN));
+        jta2.setEditable(false);
+        jta2.setBorder (BorderFactory.createTitledBorder ("输出界面"));
+        jta2.add (new JLabel ("标题边框"));
         eastPanel.add(jta2);
-        eastPanel.setPreferredSize(new Dimension(120,0));
+        eastPanel.setPreferredSize(new Dimension(400,0));
 
         //将按钮添加到窗体中
-        btn_1=new JButton("可乐");                                   //各种商品按钮
+        btn_1=new JButton("可乐");                               //各种商品按钮
+        btn_1.setFont(new Font("黑体", Font.BOLD,20));
+        btn_1.setForeground(Color.RED);
         btn_1.addActionListener(this);
         westPanel.add(btn_1);
 
         btn_2=new JButton("红牛");
+        btn_2.setFont(new Font("黑体", Font.BOLD,20));
+        btn_2.setForeground(Color.YELLOW);
         btn_2.addActionListener(this);
         westPanel.add(btn_2);
 
         btn_3=new JButton("薯片");
+        btn_3.setFont(new Font("黑体", Font.BOLD,20));
+        btn_3.setForeground(new Color(234,199,135));
         btn_3.addActionListener(this);
         westPanel.add(btn_3);
 
         btn_4=new JButton("汉堡");
+        btn_4.setFont(new Font("黑体", Font.BOLD,20));
+        btn_4.setForeground(Color.ORANGE);
         btn_4.addActionListener(this);
         westPanel.add(btn_4);
 
         btn_5=new JButton("雨伞");
+        btn_5.setFont(new Font("黑体", Font.BOLD,20));
+        btn_5.setForeground(Color.CYAN);
         btn_5.addActionListener(this);
         westPanel.add(btn_5);
 
         btn_6=new JButton("抱枕");
+        btn_6.setFont(new Font("黑体", Font.BOLD,20));
+        btn_6.setForeground(Color.MAGENTA);
         btn_6.addActionListener(this);
         westPanel.add(btn_6);
 
         btn_7=new JButton("屏幕");
+        btn_7.setFont(new Font("黑体", Font.BOLD,20));
+        btn_7.setForeground(Color.DARK_GRAY);
         btn_7.addActionListener(this);
         westPanel.add(btn_7);
 
         btn_8=new JButton("增高垫");
+        btn_8.setFont(new Font("黑体", Font.BOLD,20));
+        btn_8.setForeground(Color.PINK);
         btn_8.addActionListener(this);
         westPanel.add(btn_8);
 
         btn_9=new JButton("口罩");
+        btn_9.setFont(new Font("黑体", Font.BOLD,20));
+        btn_9.setForeground(Color.GREEN);
         btn_9.addActionListener(this);
         westPanel.add(btn_9);
 
         btn_10=new JButton("RPG");
+        btn_10.setFont(new Font("黑体", Font.BOLD,20));
         btn_10.addActionListener(this);
         westPanel.add(btn_10);
 
-        btn_11=new JButton("提交");                                      //提交按钮
+        btn_11=new JButton("提交");                                           //提交按钮
+        btn_11.setFont(new Font("黑体", Font.BOLD,20));
         btn_11.addActionListener(this);
         southPanel.add(btn_11);
 
@@ -115,34 +141,34 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btn_1) {
-            System.out.println("可乐");
+            jta.append("可乐,\n");
         }
         if(e.getSource()==btn_2) {
-            System.out.println("红牛");
+            jta.append("红牛,\n");
         }
         if(e.getSource()==btn_3) {
-            System.out.println("薯片");
+            jta.append("薯片,\n");
         }
         if(e.getSource()==btn_4) {
-            System.out.println("汉堡");
+            jta.append("汉堡,\n");
         }
         if(e.getSource()==btn_5) {
-            System.out.println("雨伞");
+            jta.append("雨伞,\n");
         }
         if(e.getSource()==btn_6) {
-            System.out.println("抱枕");
+            jta.append("抱枕,\n");
         }
         if(e.getSource()==btn_7) {
-            System.out.println("屏幕");
+            jta.append("屏幕,\n");
         }
         if(e.getSource()==btn_8) {
-            System.out.println("增高垫");
+            jta.append("增高垫,\n");
         }
         if(e.getSource()==btn_9) {
-            System.out.println("口罩");
+            jta.append("口罩,\n");
         }
         if(e.getSource()==btn_10) {
-            System.out.println("RPG");
+            jta.append("RPG,\n");
         }
         if(e.getSource()==btn_11) {
 
