@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by 知昊 on 2016/1/6.
  */
-public class getGoodByBarcodeTest {
+public class GetGoodByBarcodeTest {
 
     @Test
     public void testMysqlConnect()

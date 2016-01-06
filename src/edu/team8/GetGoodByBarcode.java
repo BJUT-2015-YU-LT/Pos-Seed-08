@@ -35,15 +35,15 @@ public class GetGoodByBarcode {
     public Good findByBarcode(String barcodeString)
     {
         try {
-            Good result=null;
             sql="SELECT * FROM item WHERE barcode='"+barcodeString+"'";
             resultList = sqlStatement.executeQuery(sql);
+
             if(resultList.next()) {
                 String barcode = resultList.getString("barcode");
                 String name = resultList.getString("name");
                 String unit = resultList.getString("unit");
                 double price = resultList.getDouble("price");
-                System.out.println(new Good(barcode, name, unit, price));
+                Good result = new Good(barcode, name, unit, price);
                 return result;
             }
         } catch (SQLException e) {
