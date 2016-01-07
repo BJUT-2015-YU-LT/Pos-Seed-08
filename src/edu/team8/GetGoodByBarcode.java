@@ -17,14 +17,14 @@ public class GetGoodByBarcode {
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
             "?user=qdm169548131&password=ssXYZ379&useUnicode=true&characterEncoding=UTF8";
 
-    //SQL语句
-    private String sql;
+    private String sql;                  //SQL语句
     private ResultSet resultList;       //结果列表
     private Connection sqlConnect;      //SQL链接
     private Statement sqlStatement;     //SQL命令发送器?
 
-
-    //数据库连接函数
+    /**
+     * 数据库连接函数
+     */
     public GetGoodByBarcode() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -53,7 +53,11 @@ public class GetGoodByBarcode {
         }
     }
 
-    //根据条码找商品
+    /**
+     * 根据条码找商品
+     * @param barcodeString
+     * @return
+     */
     public Good findByBarcode(String barcodeString)
     {
         try {
@@ -65,16 +69,27 @@ public class GetGoodByBarcode {
                 String name = resultList.getString("name");
                 String unit = resultList.getString("unit");
                 double price = resultList.getDouble("price");
-                Good result = new Good(barcode, name, unit, price);
+                /**
+                 * 需求 2 添加 discount
+                 */
+                double discount = resultList.getDouble("price");
+                Good result = new Good(barcode, name, unit, price,discount);
                 return result;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            if(window!=null)
+                window.printLog("查询数据失败, 请于管理员联系");
+            else
+                System.out.println("查询数据失败, 请于管理员联系");
         }
         return null;
     }
 
-    //根据条码列表生成商品列表
+    /**
+     * 根据条码列表生成商品列表
+     * @param barcodeStrings
+     * @return
+     */
     public ArrayList<Good> getItemInfo(String[] barcodeStrings)
     {
         if(barcodeStrings.length==0)
@@ -96,10 +111,19 @@ public class GetGoodByBarcode {
         return goodArrayList;
     }
 
+    /**
+     * 分配输出窗口
+     * @param window
+     */
     public static void setWindow(BarcodeScanner window) {
         GetGoodByBarcode.window = window;
     }
 
+    /**
+     * 生成商品列表
+     * @param barcodes
+     * @return
+     */
     public static ArrayList<Good> makeGoodList(String barcodes)
     {
         GetGoodByBarcode getGoodConnect = new GetGoodByBarcode();
@@ -107,6 +131,11 @@ public class GetGoodByBarcode {
         return  result;
     }
 
+    /**
+     * 处理条码字符串
+     * @param barcodeText
+     * @return
+     */
     private static String[] processBarcodeSting(String barcodeText)
     {
         String processing = barcodeText.replace("\n","");

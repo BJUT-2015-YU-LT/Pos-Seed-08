@@ -25,11 +25,12 @@ public class Good {
         this.unit = g.unit;
         this.price = g.price;
     }
-    public Good(String barcode, String name, String unit, double price) {
+    public Good(String barcode, String name, String unit, double price,double discount) {
         this.barcode = barcode;
         this.name = name;
         this.unit = unit;
         this.price = price;
+        this.discount = discount;
     }
 
     public String getBarcode()
