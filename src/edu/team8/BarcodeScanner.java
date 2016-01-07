@@ -23,6 +23,14 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     private JPanel southPanel;
     private JPanel eastPanel;
 
+    private JScrollPane jsp;
+    private JScrollPane jsp2;
+    private JScrollPane jsp3;
+
+    private JPanel jcp;
+    private JPanel jcp2;
+    private JPanel jcp3;
+
     private JTextArea jta;
     private JTextArea jta2;
     private JTextArea jta3;
@@ -56,8 +64,8 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
         westPanel=new JPanel(new GridLayout(10,1));
         southPanel=new JPanel(new GridLayout(1,1));
-        centerPanel=new JPanel(new GridLayout(2,1));
-        eastPanel=new JPanel(new GridLayout(1,1));
+        centerPanel=new JPanel(new GridLayout(1,1));
+        eastPanel=new JPanel(new GridLayout(2,1));
 
         //titleBorder=new TitledBorder(null,"")
 
@@ -67,19 +75,12 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         tb_1.setTitleFont(new Font("黑体",Font.PLAIN,20));
         tb_1.setTitleJustification(TitledBorder.LEFT);
         tb_1.setTitlePosition(TitledBorder.TOP);
-        jta.setBorder(tb_1);
         jta.add (new JLabel ("标题边框"));
-        centerPanel.add(jta);
-
-        jta3=new JTextArea();
-        jta3.setEditable(false);
-        TitledBorder tb_3 = BorderFactory.createTitledBorder ("日志信息");
-        tb_3.setTitleFont(new Font("黑体",Font.PLAIN,20));
-        tb_3.setTitleJustification(TitledBorder.LEFT);
-        tb_3.setTitlePosition(TitledBorder.TOP);
-        jta3.setBorder(tb_3);
-        jta3.add (new JLabel ("标题边框"));
-        centerPanel.add(jta3);
+        jsp=new JScrollPane(jta);
+        jcp = new JPanel(new GridLayout());
+        jcp.setBorder(tb_1);
+        jcp.add(jsp);
+        eastPanel.add(jcp);
 
         jta2=new JTextArea();
         jta2.setEditable(false);
@@ -87,9 +88,25 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         tb_2.setTitleFont(new Font("黑体",Font.PLAIN,20));
         tb_2.setTitleJustification(TitledBorder.LEFT);
         tb_2.setTitlePosition(TitledBorder.TOP);
-        jta2.setBorder(tb_2);
         jta2.add (new JLabel ("标题边框"));
-        eastPanel.add(jta2);
+        jsp2=new JScrollPane(jta2);
+        jcp2 = new JPanel(new GridLayout());
+        jcp2.setBorder(tb_2);
+        jcp2.add(jsp2);
+        centerPanel.add(jcp2);
+
+
+        jta3=new JTextArea();
+        jta3.setEditable(false);
+        TitledBorder tb_3 = BorderFactory.createTitledBorder ("日志信息");
+        tb_3.setTitleFont(new Font("黑体",Font.PLAIN,20));
+        tb_3.setTitleJustification(TitledBorder.LEFT);
+        tb_3.setTitlePosition(TitledBorder.TOP);
+        jsp3=new JScrollPane(jta3);
+        jcp3 = new JPanel(new GridLayout());
+        jcp3.setBorder(tb_3);
+        jcp3.add(jsp3);
+        eastPanel.add(jcp3);
         eastPanel.setPreferredSize(new Dimension(400,0));
 
         //将按钮添加到窗体中
@@ -230,5 +247,10 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     public void printLog(String log)
     {
         jta3.append(log);
-    }
+    }                     //日志信息接口
+
+    public void printReceipt(String receipt)
+    {
+        jta2.append(receipt );
+    }        //小票打印接口
 }
