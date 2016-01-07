@@ -1,7 +1,9 @@
 package edu.team8;
 
+import javafx.scene.layout.Border;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class BarcodeScanner extends JFrame implements ActionListener {
     private String barcodeText;
+    private String logText;
 
     private JPanel westPanel;
     private JPanel centerPanel;
@@ -19,6 +22,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
     private JTextArea jta;
     private JTextArea jta2;
+    private JTextArea jta3;
 
     private JButton btn_1;
     private JButton btn_2;
@@ -35,6 +39,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     public BarcodeScanner(String sss) {
         super(sss);
         barcodeText = new String();
+        logText = new String();
 
         init();//窗口初始化
 
@@ -48,18 +53,38 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
         westPanel=new JPanel(new GridLayout(10,1));
         southPanel=new JPanel(new GridLayout(1,1));
-        centerPanel=new JPanel(new GridLayout(1,1));
+        centerPanel=new JPanel(new GridLayout(2,1));
         eastPanel=new JPanel(new GridLayout(1,1));
+
+        //titleBorder=new TitledBorder(null,"")
 
         jta=new JTextArea();
         jta.setEditable(false);
-        jta.setBorder (BorderFactory.createTitledBorder ("已扫描商品"));
+        TitledBorder tb_1 = BorderFactory.createTitledBorder ("已扫描商品");
+        tb_1.setTitleFont(new Font("黑体",Font.PLAIN,20));
+        tb_1.setTitleJustification(TitledBorder.LEFT);
+        tb_1.setTitlePosition(TitledBorder.TOP);
+        jta.setBorder(tb_1);
         jta.add (new JLabel ("标题边框"));
         centerPanel.add(jta);
 
+        jta3=new JTextArea();
+        jta3.setEditable(false);
+        TitledBorder tb_3 = BorderFactory.createTitledBorder ("日志信息");
+        tb_3.setTitleFont(new Font("黑体",Font.PLAIN,20));
+        tb_3.setTitleJustification(TitledBorder.LEFT);
+        tb_3.setTitlePosition(TitledBorder.TOP);
+        jta3.setBorder(tb_3);
+        jta3.add (new JLabel ("标题边框"));
+        centerPanel.add(jta3);
+
         jta2=new JTextArea();
         jta2.setEditable(false);
-        jta2.setBorder (BorderFactory.createTitledBorder ("输出界面"));
+        TitledBorder tb_2 = BorderFactory.createTitledBorder ("小票打印");
+        tb_2.setTitleFont(new Font("黑体",Font.PLAIN,20));
+        tb_2.setTitleJustification(TitledBorder.LEFT);
+        tb_2.setTitlePosition(TitledBorder.TOP);
+        jta2.setBorder(tb_2);
         jta2.add (new JLabel ("标题边框"));
         eastPanel.add(jta2);
         eastPanel.setPreferredSize(new Dimension(400,0));
@@ -103,7 +128,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
         btn_7=new JButton("屏幕");
         btn_7.setFont(new Font("黑体", Font.BOLD,20));
-        btn_7.setForeground(Color.DARK_GRAY);
+        btn_7.setForeground(Color.GRAY);
         btn_7.addActionListener(this);
         westPanel.add(btn_7);
 
@@ -140,39 +165,46 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        jta.setFont(new Font("宋体",Font.BOLD,20));
         if(e.getSource()==btn_1) {
-            jta.append("可乐,\n");
+            jta.append("ITEM0000\b可乐,\n");
         }
         if(e.getSource()==btn_2) {
-            jta.append("红牛,\n");
+            jta.append("ITEM0001\b红牛,\n");
         }
         if(e.getSource()==btn_3) {
-            jta.append("薯片,\n");
+            jta.append("ITEM0002\b薯片,\n");
         }
         if(e.getSource()==btn_4) {
-            jta.append("汉堡,\n");
+            jta.append("ITEM0003\b汉堡,\n");
         }
         if(e.getSource()==btn_5) {
-            jta.append("雨伞,\n");
+            jta.append("ITEM0004\b雨伞,\n");
         }
         if(e.getSource()==btn_6) {
-            jta.append("抱枕,\n");
+            jta.append("ITEM0005\b抱枕,\n");
         }
         if(e.getSource()==btn_7) {
-            jta.append("屏幕,\n");
+            jta.append("ITEM0006\b屏幕,\n");
         }
         if(e.getSource()==btn_8) {
-            jta.append("增高垫,\n");
+            jta.append("ITEM0007\b增高垫,\n");
         }
         if(e.getSource()==btn_9) {
-            jta.append("口罩,\n");
+            jta.append("ITEM0008\b口罩,\n");
         }
         if(e.getSource()==btn_10) {
-            jta.append("RPG,\n");
+            jta.append("ITEM0009\bRPG,\n");
         }
         if(e.getSource()==btn_11) {
-
-
+            barcodeText=jta3.getText();
+            logText = GetGoodByBarcode.makeGoodList(barcodeText).toString();
+            jta3.setText(logText);
         }
+    }
+
+    public void printLog(String log)
+    {
+        jta3.append(log);
     }
 }

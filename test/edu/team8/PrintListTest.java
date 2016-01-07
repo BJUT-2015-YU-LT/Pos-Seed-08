@@ -19,6 +19,11 @@ public class PrintListTest {
         GoodExtends ge_2 =new GoodExtends("ITEM000002","黑牛","头",10,2);  //正确
         t.add(ge_2);
 
+        GoodExtends ge_3 =new GoodExtends("ITEM000002","黑牛","头",10,4);  //重复
+        t.add(ge_3);
+
+        GoodExtends ge_4 =new GoodExtends("本应是条码","321","233",-10,-15);  //错误
+        t.add(ge_4);
         for(GoodExtends ge:t)
         {
             System.out.println("商品BarCode:   " + ge.getBarcode() + "   " + "名称:   " + ge.getName() + "   " +  //打印信息
