@@ -10,8 +10,8 @@ public class GoodExtends extends Good {
         super(g);
         count=1;
     }
-    public GoodExtends(String barcode, String name, String unit, double price , int count) {
-        super(barcode, name, unit, price);
+    public GoodExtends(String barcode, String name, String unit, double price ,double discount , int count) {
+        super(barcode, name, unit, price,discount);
         this.count = count;
     }
 

@@ -13,16 +13,16 @@ public class PrintListTest {
     @Test
     public void testPrintGoodList() throws Exception {
         ArrayList<GoodExtends> t=new ArrayList<GoodExtends>();
-        GoodExtends ge_1 =new GoodExtends("ITEM000001","红牛","罐",6.5,3);  //正确
+        GoodExtends ge_1 =new GoodExtends("ITEM000001","红牛","罐",6.5,3,1);  //正确
         t.add(ge_1);
 
-        GoodExtends ge_2 =new GoodExtends("ITEM000002","黑牛","头",10,2);  //正确
+        GoodExtends ge_2 =new GoodExtends("ITEM000002","黑牛","头",10,2,1);  //正确
         t.add(ge_2);
 
-        GoodExtends ge_3 =new GoodExtends("ITEM000002","黑牛","头",10,4);  //重复
+        GoodExtends ge_3 =new GoodExtends("ITEM000002","黑牛","头",10,4,1);  //重复
         t.add(ge_3);
 
-        GoodExtends ge_4 =new GoodExtends("本应是条码","321","233",-10,-15);  //错误
+        GoodExtends ge_4 =new GoodExtends("本应是条码","321","233",-10,-15,1);  //错误
         t.add(ge_4);
         for(GoodExtends ge:t)
         {
