@@ -41,7 +41,7 @@ public interface ChangeList {
         ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
         for (Good good:itemList)
             list1.add(new GoodExtends(good));
-        int i=-1,j=-1;
+        int i=-1;
         for (String s:barcodeList)
         {
             Good tempGood = new Good(s);
