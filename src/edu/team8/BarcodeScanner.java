@@ -1,5 +1,7 @@
 package edu.team8;
 
+import edu.team8.classes.Good;
+import edu.team8.classes.GoodExtends;
 import javafx.scene.layout.Border;
 
 import javax.swing.*;
@@ -7,6 +9,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by 帅 on 2016/1/6.
@@ -217,9 +220,10 @@ public class BarcodeScanner extends JFrame implements ActionListener {
             jta.append("ITEM0009");
         }
         if(e.getSource()==btn_11) {
-            barcodeText=jta3.getText();
-            logText = GetGoodByBarcode.makeGoodList(barcodeText).toString();
-            jta3.setText(logText);
+            barcodeText=jta.getText();
+            ArrayList<Good> goods = GetGoodByBarcode.makeGoodList(barcodeText);
+            ArrayList<GoodExtends> ge= ChangeList.processChangeList(goods);
+            PrintList.PrintGoodList(ge);
         }
     }
 

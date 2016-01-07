@@ -90,14 +90,14 @@ public class GetGoodByBarcode {
     public static ArrayList<Good> makeGoodList(String barcodes)
     {
         GetGoodByBarcode getGoodConnect = new GetGoodByBarcode();
-        ArrayList<Good> result = getGoodConnect.getItemInfo(barcodes.split(","));
+        ArrayList<Good> result = getGoodConnect.getItemInfo(processBarcodeSting(barcodes));
         return  result;
     }
 
-    private String processBarcodeSting(String barcodes)
+    private static String[] processBarcodeSting(String barcodeText)
     {
-        String result = new String(barcodes);
-        result.replace("\n","");
+        String processing = barcodeText.replace("\n","");
+        String[] result= processing.split(",");
         return result;
     }
 }
