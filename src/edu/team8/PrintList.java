@@ -27,9 +27,9 @@ public interface PrintList {
                 save += (1-ge.getDiscount())*ge.getCount()*ge.getPrice();                            //第二轮迭代
                 n += ge.getCount();                                                                  //计算商品总数
         }
-        bs.printReceipt("------------------------------");
-        bs.printReceipt("总计：" + df.format(sum) + "\t节省：" + df.format(save)
-                +"\t商品总数：" + n +"\t");
+        bs.printReceipt("-------------------------------------------");
+        bs.printReceipt("总计：" + df.format(sum) + "（元）" + "  节省：" + df.format(save) + "（元）" +
+                "  商品总数：" + n +"（件）");
         bs.printReceipt("**********************************************************************************");
     }
 }
