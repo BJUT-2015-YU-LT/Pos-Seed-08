@@ -16,7 +16,7 @@ public class ChangeList {
         List<String> list2=new ArrayList<String>();
         for(int k=0;k<list.size();k++)
         {
-            list2=list.get(k).getBarcode();
+
         }
         int i,count=0,count1;
         Good good;
