@@ -29,4 +29,15 @@ public interface ChangeList {
         return list1;
     }
 
+    /**
+     * 第二轮迭代
+     * 根据商品列表和索引文件生成购物清单
+     * @param itemList
+     * @param barcodeList
+     * @return
+     */
+    /*public static ArrayList<GoodExtends> ConvertList(ArrayList<Good> itemList,String[] barcodeList)
+    {
+
+    }*/
 }
