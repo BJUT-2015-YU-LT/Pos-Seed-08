@@ -16,6 +16,10 @@ public class Good {
     protected double discount;
 
     //构造函数
+    public Good()
+    {
+
+    }
     public Good(Good g) {
         this.barcode = g.barcode;
         this.name = g.name;

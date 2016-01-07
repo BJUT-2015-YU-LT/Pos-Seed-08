@@ -8,6 +8,11 @@ import java.util.ArrayList;
  * Created by 知昊 on 2016/1/6.
  */
 public class GetGoodByBarcode {
+    /**
+     * 得到窗口对象以方便输出 成员变量访问
+     */
+    private static BarcodeScanner window;
+
     //SQL地址
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
             "?user=qdm169548131&password=ssXYZ379&useUnicode=true&characterEncoding=UTF8";
@@ -78,10 +83,21 @@ public class GetGoodByBarcode {
         return goodArrayList;
     }
 
+    public static void setWindow(BarcodeScanner window) {
+        GetGoodByBarcode.window = window;
+    }
+
     public static ArrayList<Good> makeGoodList(String barcodes)
     {
         GetGoodByBarcode getGoodConnect = new GetGoodByBarcode();
         ArrayList<Good> result = getGoodConnect.getItemInfo(barcodes.split(","));
         return  result;
+    }
+
+    private String processBarcodeSting(String barcodes)
+    {
+        String result = new String(barcodes);
+        result.replace("\n","");
+        return result;
     }
 }
