@@ -15,9 +15,9 @@ public class Good {
     protected double discount;
 
     //构造函数
-    public Good()
+    public Good(String barcode)
     {
-
+        this.barcode = barcode;
     }
     public Good(Good g) {
         this.barcode = g.barcode;
@@ -90,8 +90,8 @@ public class Good {
     {
         if(ge instanceof GoodExtends)
             return ((GoodExtends) ge).getBarcode().equals(this.barcode);
-        else if(ge instanceof String)
-            return this.getBarcode().equals(ge);
+        else if(ge instanceof Good)
+            return ((Good) ge).getBarcode().equals(this.barcode);
         return false;
     }
 }

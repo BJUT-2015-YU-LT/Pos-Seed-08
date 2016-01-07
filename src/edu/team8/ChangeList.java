@@ -39,20 +39,15 @@ public interface ChangeList {
     public static ArrayList<GoodExtends> ConvertList(ArrayList<Good> itemList,ArrayList<String> barcodeList)
     {
         ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
+        for (Good good:itemList)
+            list1.add(new GoodExtends(good));
         int i=-1,j=-1;
         for (String s:barcodeList)
         {
-            if((i=itemList.indexOf(s))>=0)
+            Good tempGood = new Good(s);
+            if((i=itemList.indexOf(tempGood))>=0)
             {
                 list1.get(i).countUp();
-            }
-            else
-            {
-                for(Good g:itemList)
-                {
-                    if((j=list1.indexOf(g))<0)
-                        list1.add(new GoodExtends(g));
-                }
             }
         }
         return list1;
