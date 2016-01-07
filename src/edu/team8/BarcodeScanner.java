@@ -46,6 +46,16 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     private JButton btn_9;
     private JButton btn_10;
     private JButton btn_11;
+    private JButton btn_12;
+    private JButton btn_13;
+    private JButton btn_14;
+    private JButton btn_15;
+    private JButton btn_16;
+    private JButton btn_17;
+    private JButton btn_18;
+    private JButton btn_19;
+    private JButton btn_20;
+    private JButton btn_21;
 
     public BarcodeScanner(String sss) {
         super(sss);
@@ -62,7 +72,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);                             //让窗体居中显示
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);     //默认关闭模式
 
-        westPanel=new JPanel(new GridLayout(10,1));
+        westPanel=new JPanel(new GridLayout(10,2));
         southPanel=new JPanel(new GridLayout(1,1));
         centerPanel=new JPanel(new GridLayout(1,1));
         eastPanel=new JPanel(new GridLayout(2,1));
@@ -169,6 +179,64 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         btn_10.addActionListener(this);
         westPanel.add(btn_10);
 
+        btn_12=new JButton("咖啡");
+        btn_12.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_12.setForeground(Color.ORANGE);
+        btn_12.addActionListener(this);
+        westPanel.add(btn_12);
+
+        btn_13=new JButton("二锅头");
+        btn_13.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_13.setForeground(new Color(234,199,135));
+        btn_13.addActionListener(this);
+        westPanel.add(btn_13);
+
+        btn_14=new JButton("方便面");
+        btn_14.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_14.setForeground(Color.orange);
+        btn_14.addActionListener(this);
+        westPanel.add(btn_14);
+
+        btn_15=new JButton("肉松饼");
+        btn_15.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_15.setForeground(Color.CYAN);
+        btn_15.addActionListener(this);
+        westPanel.add(btn_15);
+
+        btn_16=new JButton("拖鞋");
+        btn_16.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_16.setForeground(Color.MAGENTA);
+        btn_16.addActionListener(this);
+        westPanel.add(btn_16);
+
+        btn_17=new JButton("");
+        btn_17.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_17.setForeground(Color.GRAY);
+        btn_17.addActionListener(this);
+        westPanel.add(btn_17);
+
+        btn_18=new JButton("鼠标");
+        btn_18.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_18.setForeground(Color.PINK);
+        btn_18.addActionListener(this);
+        westPanel.add(btn_18);
+
+        btn_19=new JButton("电池");
+        btn_19.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_19.setForeground(Color.GREEN);
+        btn_19.addActionListener(this);
+        westPanel.add(btn_19);
+
+        btn_20=new JButton("卫生纸");
+        btn_20.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_20.addActionListener(this);
+        westPanel.add(btn_20);
+
+        btn_21=new JButton("C4");
+        btn_21.setFont(new Font("Gulim", Font.BOLD,20));
+        btn_21.addActionListener(this);
+        westPanel.add(btn_21);
+
         btn_11=new JButton("提交");                                           //提交按钮
         btn_11.setFont(new Font("幼圆", Font.BOLD,20));
         btn_11.addActionListener(this);
@@ -238,6 +306,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         }
         if(e.getSource()==btn_11) {
             barcodeText=jta.getText();
+            GetGoodByBarcode.setWindow(this);
             ArrayList<Good> goods = GetGoodByBarcode.makeGoodList(barcodeText);
             ArrayList<GoodExtends> ge= ChangeList.processChangeList(goods);
             PrintList.PrintGoodList(ge,this);
@@ -246,11 +315,11 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
     public void printLog(String log)
     {
-        jta3.append(log);
-    }                     //日志信息接口
+        jta3.append(log+"\n");
+    }                                                                      //日志信息接口
 
     public void printReceipt(String receipt)
     {
         jta2.append(receipt+ "\n" );
-    }        //小票打印接口
+    }                                                                      //小票打印接口
 }
