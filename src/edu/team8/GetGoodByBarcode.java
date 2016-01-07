@@ -51,7 +51,7 @@ public class GetGoodByBarcode {
             resultList = sqlStatement.executeQuery(sql);
 
             if(resultList.next()) {
-                String barcode = resultList.getString("barcode");
+                String barcode = resultList.getString("barcode");           //从数据库查信息
                 String name = resultList.getString("name");
                 String unit = resultList.getString("unit");
                 double price = resultList.getDouble("price");
