@@ -16,6 +16,12 @@ public class Good {
     protected double discount;
 
     //构造函数
+    public Good(Good g) {
+        this.barcode = g.barcode;
+        this.name = g.name;
+        this.unit = g.unit;
+        this.price = g.price;
+    }
     public Good(String barcode, String name, String unit, double price) {
         this.barcode = barcode;
         this.name = name;
