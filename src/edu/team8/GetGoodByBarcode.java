@@ -72,7 +72,7 @@ public class GetGoodByBarcode {
                 /**
                  * 需求 2 添加 discount
                  */
-                double discount = resultList.getDouble("price");
+                double discount = resultList.getDouble("discount");
                 Good result = new Good(barcode, name, unit, price,discount);
                 return result;
             }

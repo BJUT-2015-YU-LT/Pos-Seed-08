@@ -24,6 +24,7 @@ public class Good {
         this.name = g.name;
         this.unit = g.unit;
         this.price = g.price;
+        this.discount = g.discount;
     }
     public Good(String barcode, String name, String unit, double price,double discount) {
         this.barcode = barcode;
@@ -68,7 +69,7 @@ public class Good {
     }
 
     public double getDiscount() {
-        return discount;
+        return this.discount;
     }
 
     public void setDiscount(double discount) {
