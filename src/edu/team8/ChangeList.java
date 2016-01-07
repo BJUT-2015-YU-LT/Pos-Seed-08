@@ -11,6 +11,22 @@ import java.util.List;
  */
 public interface ChangeList {
 
-    public ArrayList<GoodExtends> ChangeList1(ArrayList<Good> list);
+    public static ArrayList<GoodExtends> processChangeList(ArrayList<Good> list)
+    {
+        ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
+        int i=0;
+        for (Good g:list)
+        {
+            if((i=list1.indexOf(g))>=0)
+            {
+                list1.get(i).countUp();
+            }
+            else
+            {
+                list1.add(new GoodExtends(g));
+            }
+        }
+        return list1;
+    }
 
 }
