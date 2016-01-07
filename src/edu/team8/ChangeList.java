@@ -36,8 +36,25 @@ public interface ChangeList {
      * @param barcodeList
      * @return
      */
-    /*public static ArrayList<GoodExtends> ConvertList(ArrayList<Good> itemList,String[] barcodeList)
+    public static ArrayList<GoodExtends> ConvertList(ArrayList<Good> itemList,ArrayList<String> barcodeList)
     {
-
-    }*/
+        ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
+        int i=-1,j=-1;
+        for (String s:barcodeList)
+        {
+            if((i=itemList.indexOf(s))>=0)
+            {
+                list1.get(i).countUp();
+            }
+            else
+            {
+                for(Good g:itemList)
+                {
+                    if((j=list1.indexOf(g))<0)
+                        list1.add(new GoodExtends(g));
+                }
+            }
+        }
+        return list1;
+    }
 }
