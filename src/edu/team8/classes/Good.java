@@ -89,6 +89,8 @@ public class Good {
     {
         if(ge instanceof GoodExtends)
             return ((GoodExtends) ge).getBarcode().equals(this.barcode);
+        else if(ge instanceof String)
+            return this.getBarcode().equals(ge);
         return false;
     }
 }
