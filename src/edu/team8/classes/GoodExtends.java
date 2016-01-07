@@ -24,4 +24,12 @@ public class GoodExtends extends Good {
     public void countUp() {
         this.count+=1;
     }
+
+    @Override
+    public String toString()
+    {
+        String s = super.toString();
+        s+="{count="+count+"}";
+        return s;
+    }
 }
