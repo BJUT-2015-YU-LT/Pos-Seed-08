@@ -1,6 +1,5 @@
 package edu.team8.classes;
 
-
 /**
  * Created by 知昊 on 2016/1/6.
  * Modified by 知昊 on 2016/1/7 for 需求2
@@ -83,10 +82,12 @@ public class Good {
         return "Good{[barcode:"+barcode+"][name:"+name+"][unit:"+unit
                     +"][price:"+price+"][discount:"+discount+"]}";
     }
-    public boolean equals(GoodExtends ge)
+
+    @Override
+    public boolean equals(Object ge)
     {
-        if(ge.getBarcode().equals(this.barcode))
-            return true;
+        if(ge instanceof GoodExtends)
+            return ((GoodExtends) ge).getBarcode().equals(this.barcode);
         return false;
     }
 }
