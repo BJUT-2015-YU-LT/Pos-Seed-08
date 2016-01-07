@@ -85,7 +85,7 @@ public class Good {
     }
     public boolean equals(GoodExtends ge)
     {
-        if(ge.getBarcode()==this.barcode)
+        if(ge.getBarcode().equals(this.barcode))
             return true;
         return false;
     }
