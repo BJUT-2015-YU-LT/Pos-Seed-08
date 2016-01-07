@@ -14,7 +14,7 @@ public interface ChangeList {
     public static ArrayList<GoodExtends> processChangeList(ArrayList<Good> list)
     {
         ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
-        int i=0;
+        int i=-1;
         for (Good g:list)
         {
             if((i=list1.indexOf(g))>=0)
