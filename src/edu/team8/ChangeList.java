@@ -50,6 +50,11 @@ public interface ChangeList {
                 list1.get(i).countUp();
             }
         }
+        for (i=0;i<list1.size();i++)
+        {
+            if(list1.get(i).getCount()==0)
+                list1.remove(i);
+        }
         return list1;
     }
 }
