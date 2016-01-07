@@ -111,66 +111,66 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
         //将按钮添加到窗体中
         btn_1=new JButton("可乐");                               //各种商品按钮
-        btn_1.setFont(new Font("黑体", Font.BOLD,20));
+        btn_1.setFont(new Font("幼圆", Font.BOLD,20));
         btn_1.setForeground(Color.RED);
         btn_1.addActionListener(this);
         westPanel.add(btn_1);
 
         btn_2=new JButton("红牛");
-        btn_2.setFont(new Font("黑体", Font.BOLD,20));
-        btn_2.setForeground(Color.YELLOW);
+        btn_2.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_2.setForeground(Color.ORANGE);
         btn_2.addActionListener(this);
         westPanel.add(btn_2);
 
         btn_3=new JButton("薯片");
-        btn_3.setFont(new Font("黑体", Font.BOLD,20));
+        btn_3.setFont(new Font("幼圆", Font.BOLD,20));
         btn_3.setForeground(new Color(234,199,135));
         btn_3.addActionListener(this);
         westPanel.add(btn_3);
 
         btn_4=new JButton("汉堡");
-        btn_4.setFont(new Font("黑体", Font.BOLD,20));
-        btn_4.setForeground(Color.ORANGE);
+        btn_4.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_4.setForeground(Color.orange);
         btn_4.addActionListener(this);
         westPanel.add(btn_4);
 
         btn_5=new JButton("雨伞");
-        btn_5.setFont(new Font("黑体", Font.BOLD,20));
+        btn_5.setFont(new Font("幼圆", Font.BOLD,20));
         btn_5.setForeground(Color.CYAN);
         btn_5.addActionListener(this);
         westPanel.add(btn_5);
 
         btn_6=new JButton("抱枕");
-        btn_6.setFont(new Font("黑体", Font.BOLD,20));
+        btn_6.setFont(new Font("幼圆", Font.BOLD,20));
         btn_6.setForeground(Color.MAGENTA);
         btn_6.addActionListener(this);
         westPanel.add(btn_6);
 
         btn_7=new JButton("屏幕");
-        btn_7.setFont(new Font("黑体", Font.BOLD,20));
+        btn_7.setFont(new Font("幼圆", Font.BOLD,20));
         btn_7.setForeground(Color.GRAY);
         btn_7.addActionListener(this);
         westPanel.add(btn_7);
 
         btn_8=new JButton("增高垫");
-        btn_8.setFont(new Font("黑体", Font.BOLD,20));
+        btn_8.setFont(new Font("幼圆", Font.BOLD,20));
         btn_8.setForeground(Color.PINK);
         btn_8.addActionListener(this);
         westPanel.add(btn_8);
 
         btn_9=new JButton("口罩");
-        btn_9.setFont(new Font("黑体", Font.BOLD,20));
+        btn_9.setFont(new Font("幼圆", Font.BOLD,20));
         btn_9.setForeground(Color.GREEN);
         btn_9.addActionListener(this);
         westPanel.add(btn_9);
 
         btn_10=new JButton("RPG");
-        btn_10.setFont(new Font("黑体", Font.BOLD,20));
+        btn_10.setFont(new Font("Gulim", Font.BOLD,20));
         btn_10.addActionListener(this);
         westPanel.add(btn_10);
 
         btn_11=new JButton("提交");                                           //提交按钮
-        btn_11.setFont(new Font("黑体", Font.BOLD,20));
+        btn_11.setFont(new Font("幼圆", Font.BOLD,20));
         btn_11.addActionListener(this);
         southPanel.add(btn_11);
 
@@ -240,7 +240,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
             barcodeText=jta.getText();
             ArrayList<Good> goods = GetGoodByBarcode.makeGoodList(barcodeText);
             ArrayList<GoodExtends> ge= ChangeList.processChangeList(goods);
-            PrintList.PrintGoodList(ge);
+            PrintList.PrintGoodList(ge,this);
         }
     }
 
@@ -251,6 +251,6 @@ public class BarcodeScanner extends JFrame implements ActionListener {
 
     public void printReceipt(String receipt)
     {
-        jta2.append(receipt );
+        jta2.append(receipt+ "\n" );
     }        //小票打印接口
 }
