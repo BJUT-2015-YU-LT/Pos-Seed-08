@@ -167,34 +167,54 @@ public class BarcodeScanner extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         jta.setFont(new Font("宋体",Font.BOLD,20));
         if(e.getSource()==btn_1) {
-            jta.append("ITEM0000\b可乐,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0000");
         }
         if(e.getSource()==btn_2) {
-            jta.append("ITEM0001\b红牛,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0001");
         }
         if(e.getSource()==btn_3) {
-            jta.append("ITEM0002\b薯片,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0002");
         }
         if(e.getSource()==btn_4) {
-            jta.append("ITEM0003\b汉堡,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0003");
         }
         if(e.getSource()==btn_5) {
-            jta.append("ITEM0004\b雨伞,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0004");
         }
         if(e.getSource()==btn_6) {
-            jta.append("ITEM0005\b抱枕,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0005");
         }
         if(e.getSource()==btn_7) {
-            jta.append("ITEM0006\b屏幕,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0006");
         }
         if(e.getSource()==btn_8) {
-            jta.append("ITEM0007\b增高垫,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0007");
         }
         if(e.getSource()==btn_9) {
-            jta.append("ITEM0008\b口罩,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0008");
         }
         if(e.getSource()==btn_10) {
-            jta.append("ITEM0009\bRPG,\n");
+            if(jta.getText().length()!=0)
+                jta.append(",\n");
+            jta.append("ITEM0009");
         }
         if(e.getSource()==btn_11) {
             barcodeText=jta3.getText();
