@@ -17,4 +17,7 @@ public class GoodExtends extends Good {
     public void setCount(int count) {
         this.count = count;
     }
+    public void countUp() {
+        this.count+=1;
+    }
 }
