@@ -10,7 +10,7 @@ public interface PrintList {
     public static void PrintGoodList(ArrayList<GoodExtends> xiaoyu,BarcodeScanner bs){
         double sum=0;                          //总价
         bs.printReceipt("\t                     商店购物小票清单");                            //表头信息
-        bs.printReceipt("=======================================================");
+        bs.printReceipt("==============================================================");
         bs.printReceipt("商品条码\t名称\t数量\t单价\t小计\t");
         for(GoodExtends ge:xiaoyu)
         {
