@@ -11,7 +11,7 @@ public class GetGoodByBarcode {
     /**
      * 得到窗口对象以方便输出 成员变量访问
      */
-    private static BarcodeScanner window;
+    private static BarcodeScanner window=null;
 
     //SQL地址
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
@@ -28,18 +28,28 @@ public class GetGoodByBarcode {
     public GetGoodByBarcode() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("成功加载MySQL驱动程序");
+            if(window!=null)
+                window.printLog("成功加载MySQL驱动程序");
+            else
+                System.out.println("成功加载MySQL驱动程序");
 
             sqlConnect = DriverManager.getConnection(sqlUrl);
-            System.out.println("成功连接到数据库");
+            if(window!=null)
+                window.printLog("成功连接到数据库");
+            else
+                System.out.println("成功连接到数据库");
 
             sqlStatement = sqlConnect.createStatement();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("加载MySQL驱动程序失败");
+            if(window!=null)
+                window.printLog("加载MySQL驱动程序失败");
+            else
+                System.out.println("加载MySQL驱动程序失败");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("连接到数据库失败");
+            if(window!=null)
+                window.printLog("连接到数据库失败");
+            else
+                System.out.println("连接到数据库失败");
         }
     }
 
@@ -77,7 +87,10 @@ public class GetGoodByBarcode {
                 goodArrayList.add(finded);
             else
             {
-                System.out.println("检索不到条码["+barcode+"]的信息, 请于管理员联系");
+                if(window!=null)
+                    window.printLog("检索不到条码["+barcode+"]的信息, 请于管理员联系");
+                else
+                    System.out.println("检索不到条码["+barcode+"]的信息, 请于管理员联系");
             }
         }
         return goodArrayList;
