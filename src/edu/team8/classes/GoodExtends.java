@@ -8,10 +8,10 @@ public class GoodExtends extends Good {
 
     public GoodExtends(Good g) {
         super(g);
-        count=1;
+        count=0;
     }
-    public GoodExtends(String barcode, String name, String unit, double price , int count) {
-        super(barcode, name, unit, price);
+    public GoodExtends(String barcode, String name, String unit, double price ,double discount , int count) {
+        super(barcode, name, unit, price,discount);
         this.count = count;
     }
 
@@ -29,7 +29,7 @@ public class GoodExtends extends Good {
     public String toString()
     {
         String s = super.toString();
-        s+="{count="+count+"}";
+        s+="{count="+count+"}\n";
         return s;
     }
 }

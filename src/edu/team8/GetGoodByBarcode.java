@@ -11,39 +11,53 @@ public class GetGoodByBarcode {
     /**
      * 得到窗口对象以方便输出 成员变量访问
      */
-    private static BarcodeScanner window;
+    private static BarcodeScanner window=null;
 
     //SQL地址
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
             "?user=qdm169548131&password=ssXYZ379&useUnicode=true&characterEncoding=UTF8";
 
-    //SQL语句
-    private String sql;
+    private String sql;                  //SQL语句
     private ResultSet resultList;       //结果列表
     private Connection sqlConnect;      //SQL链接
     private Statement sqlStatement;     //SQL命令发送器?
 
-
-    //数据库连接函数
+    /**
+     * 数据库连接函数
+     */
     public GetGoodByBarcode() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("成功加载MySQL驱动程序");
+            if(window!=null)
+                window.printLog("成功加载MySQL驱动程序");
+            else
+                System.out.println("成功加载MySQL驱动程序");
 
             sqlConnect = DriverManager.getConnection(sqlUrl);
-            System.out.println("成功连接到数据库");
+            if(window!=null)
+                window.printLog("成功连接到数据库");
+            else
+                System.out.println("成功连接到数据库");
 
             sqlStatement = sqlConnect.createStatement();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("加载MySQL驱动程序失败");
+            if(window!=null)
+                window.printLog("加载MySQL驱动程序失败");
+            else
+                System.out.println("加载MySQL驱动程序失败");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("连接到数据库失败");
+            if(window!=null)
+                window.printLog("连接到数据库失败");
+            else
+                System.out.println("连接到数据库失败");
         }
     }
 
-    //根据条码找商品
+    /**
+     * 根据条码找商品
+     * @param barcodeString
+     * @return
+     */
     public Good findByBarcode(String barcodeString)
     {
         try {
@@ -55,16 +69,27 @@ public class GetGoodByBarcode {
                 String name = resultList.getString("name");
                 String unit = resultList.getString("unit");
                 double price = resultList.getDouble("price");
-                Good result = new Good(barcode, name, unit, price);
+                /**
+                 * 需求 2 添加 discount
+                 */
+                double discount = resultList.getDouble("discount");
+                Good result = new Good(barcode, name, unit, price,discount);
                 return result;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            if(window!=null)
+                window.printLog("查询数据失败, 请于管理员联系");
+            else
+                System.out.println("查询数据失败, 请于管理员联系");
         }
         return null;
     }
 
-    //根据条码列表生成商品列表
+    /**
+     * 根据条码列表生成商品列表
+     * @param barcodeStrings
+     * @return
+     */
     public ArrayList<Good> getItemInfo(String[] barcodeStrings)
     {
         if(barcodeStrings.length==0)
@@ -77,27 +102,44 @@ public class GetGoodByBarcode {
                 goodArrayList.add(finded);
             else
             {
-                System.out.println("检索不到条码["+barcode+"]的信息, 请于管理员联系");
+                if(window!=null)
+                    window.printLog("检索不到条码["+barcode+"]的信息, 请于管理员联系");
+                else
+                    System.out.println("检索不到条码["+barcode+"]的信息, 请于管理员联系");
             }
         }
         return goodArrayList;
     }
 
+    /**
+     * 分配输出窗口
+     * @param window
+     */
     public static void setWindow(BarcodeScanner window) {
         GetGoodByBarcode.window = window;
     }
 
+    /**
+     * 生成商品列表
+     * @param barcodes
+     * @return
+     */
     public static ArrayList<Good> makeGoodList(String barcodes)
     {
         GetGoodByBarcode getGoodConnect = new GetGoodByBarcode();
-        ArrayList<Good> result = getGoodConnect.getItemInfo(barcodes.split(","));
+        ArrayList<Good> result = getGoodConnect.getItemInfo(processBarcodeSting(barcodes));
         return  result;
     }
 
-    private String processBarcodeSting(String barcodes)
+    /**
+     * 处理条码字符串
+     * @param barcodeText
+     * @return
+     */
+    private static String[] processBarcodeSting(String barcodeText)
     {
-        String result = new String(barcodes);
-        result.replace("\n","");
+        String processing = barcodeText.replace("\n","");
+        String[] result= processing.split(",");
         return result;
     }
 }
