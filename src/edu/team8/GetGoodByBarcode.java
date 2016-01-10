@@ -88,7 +88,7 @@ public class GetGoodByBarcode {
     /**
      * 根据条码列表生成商品列表
      * @param barcodeStrings
-     * @return
+     * @return 含有重复的商品列表
      */
     public ArrayList<Good> getItemInfo(String[] barcodeStrings)
     {
