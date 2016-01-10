@@ -19,14 +19,16 @@ public class ChangeListImplTest {
         Good good2 = new Good("ITEM000001","pear","斤",4.00,1);
         Good good3 = new Good("ITEM000000","apple","斤",3.00,1);
         Good good4 = new Good("ITEM000000","apple","斤",3.00,1);
+        Good good5 = new Good("ITEM000001","pear","斤",4.00,1);
         list.add(good1);
         list.add(good2);
         list.add(good3);
         list.add(good4);
+        list.add(good5);
         System.out.println(ChangeList.processChangeList(list));
 
 
-        /* ArrayList<Good> itemlist=new ArrayList<Good>();
+        /*ArrayList<Good> itemlist=new ArrayList<Good>();
         ArrayList<String> barcodelist=new ArrayList<String>();
         Good good1 = new Good("ITEM000000","apple","斤",3.00,1);
         Good good2 = new Good("ITEM000001","pear","斤",4.00,1);
