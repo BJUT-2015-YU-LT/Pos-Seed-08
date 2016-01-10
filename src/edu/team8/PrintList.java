@@ -18,9 +18,10 @@ public interface PrintList {
         Date d = new Date();                                                        //打印时间
 
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
+        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);       // 时间格式
+
         bs.printReceipt("\t                     商店购物小票清单");                            //表头信息
-        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);
-        bs.printReceipt("\t\t       打印时间：  " + dft.format(d));
+        bs.printReceipt("\t\t       打印时间：  " + dft.format(d));                              //打印时间
         bs.printReceipt("==========================================================");
         bs.printReceipt("商品条码\t名称\t数量\t单价（元）\t小计（元）");
         for(GoodExtends ge:xiaoyu)
@@ -34,7 +35,7 @@ public interface PrintList {
                 n += ge.getCount();                                                                     //计算商品总数
             }
             else if(ge.getDiscount() > 1){                                   //买赠 第二轮迭代
-                if(ge.getCount() <= ge.getDiscount()){                        //商品买赠 但是购买数目不符合条件
+                if(ge.getCount() <= ge.getDiscount()){                        //商品买赠 但是购买数目少于满赠条件
                     bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getCount() + ge.getUnit() + "\t"
                             + df.format(ge.getPrice()) + "\t" + df.format(ge.getCount() * ge.getPrice()));  //打印信息
 
