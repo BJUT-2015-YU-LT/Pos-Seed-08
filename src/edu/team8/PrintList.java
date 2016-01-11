@@ -15,13 +15,10 @@ public interface PrintList {
         double save = 0;                                                              //节省
         int n=0;                                                                  //商品总数
         Date d = new Date();                                                        //打印时间
-<<<<<<< HEAD
-        String give = new String();
-=======
-        ArrayList<java.lang.String> str=new ArrayList<>();
-        int[] a=new int[128];
-        int i=0,j=0;
->>>>>>> origin/master
+        ArrayList<java.lang.String> str=new ArrayList<>();                          //新列表 用于存赠送商品
+        int[] a=new int[128];                                                       //存赠送商品数目
+        int i=0,j=0;                                                                //循环计数器
+
 
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
         DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);       // 时间格式
@@ -56,26 +53,19 @@ public interface PrintList {
                     save += ge.getPrice()*(int)((ge.getCount()/(ge.getDiscount()+1)));
                     n += ge.getCount();                                                                  //计算商品总数
 
-
-
-                    str.add(ge.getName());
-                    a[i]=(int)((ge.getCount()/(ge.getDiscount()+1)));
-                    /*bs.printReceipt("-------------------------------------------");
-                    bs.printReceipt("赠送商品：");
-                    bs.printReceipt("名称：" + ge.getName() + "  ,数量：" + (int)((ge.getCount()/(ge.getDiscount()+1))) );*/
+                    str.add(ge.getName());                                                              //把赠送商品名称存入列表
+                    a[i]=(int)((ge.getCount()/(ge.getDiscount()+1)));                                   //把赠送商品数目存入数组
                     i++;
                 }
-
-
             }
 
         }
-        bs.printReceipt("-------------------------------------------");
+        bs.printReceipt("-------------------------------------------");                                 //打印赠送商品
             bs.printReceipt("赠送商品：");
         for(String s:str){
-            bs.printReceipt("名称：" + s + "  数量：" + a[j] );
+            bs.printReceipt("名称：" + s + "    数量：" + a[j] );
             j++;}
-        bs.printReceipt("-------------------------------------------");
+        bs.printReceipt("-------------------------------------------");                                 //打印表尾
         bs.printReceipt("总计：" + df.format(sum) + "（元）" + "  节省：" + df.format(save) + "（元）" +
                 "  商品总数：" + n +"（件）");
         bs.printReceipt("**********************************************************************************");
