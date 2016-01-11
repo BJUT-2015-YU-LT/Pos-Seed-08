@@ -16,6 +16,7 @@ public interface PrintList {
         double save = 0;                                                              //节省
         int n=0;                                                                  //商品总数
         Date d = new Date();                                                        //打印时间
+        String give = new String();
 
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
         DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);       // 时间格式
