@@ -16,8 +16,8 @@ public class ChangeListImplTest {
     public void testChangeList1() throws Exception {
        ArrayList<Good> list=new ArrayList<Good>();
         Good good1 = new Good("ITEM000000","pear","斤",3.00,1);
-        Good good2 = new Good("ITEM000001","pear","斤",4.00,1);
-        Good good3 = new Good("ITEM000000","apple","斤",3.00,1);
+        Good good2 = new Good("ITEM000001","pear","斤",4.00,1);//barcode不一样 名称一样
+        Good good3 = new Good("ITEM000000","apple","斤",3.00,1);//barcode一样 名称不一样
         Good good4 = new Good("ITEM000000","apple","斤",3.00,1);
         Good good5 = new Good("ITEM000001","pear","斤",4.00,1);
         list.add(good1);
@@ -43,7 +43,7 @@ public class ChangeListImplTest {
         itemlist.add(good2);
         itemlist.add(good3);
 
-        barcodelist.add(barcode1);
+        barcodelist.add(barcode1);//itemlist中没有的
         barcodelist.add(barcode2);
         barcodelist.add(barcode3);
         barcodelist.add(barcode4);
