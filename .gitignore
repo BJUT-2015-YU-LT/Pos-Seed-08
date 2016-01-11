@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 *.class
+ignore.xml
 
 out/*
 .idea/vcs.xml
 .idea/workspace.xml
->>>>>>> refs/remotes/origin/master
