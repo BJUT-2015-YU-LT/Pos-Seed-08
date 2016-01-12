@@ -24,6 +24,8 @@ public interface ChangeList {
             else
             {
                 list1.add(new GoodExtends(g));
+                i=list1.indexOf(g);
+                list1.get(i).countUp();
             }
         }
         return list1;

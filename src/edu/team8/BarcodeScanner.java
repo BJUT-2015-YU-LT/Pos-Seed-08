@@ -76,6 +76,8 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         southPanel=new JPanel(new GridLayout(1,1));
         centerPanel=new JPanel(new GridLayout(1,1));
         eastPanel=new JPanel(new GridLayout(2,1));
+        westPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        southPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //titleBorder=new TitledBorder(null,"")
 
@@ -91,6 +93,7 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         jcp.setBorder(tb_1);
         jcp.add(jsp);
         eastPanel.add(jcp);
+
 
         jta2=new JTextArea();
         jta2.setEditable(false);
