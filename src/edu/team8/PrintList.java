@@ -19,7 +19,6 @@ public interface PrintList {
         int[] a=new int[128];                                                       //存赠送商品数目
         int i=0,j=0;                                                                //循环计数器
 
-
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
         DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);       // 时间格式
 
@@ -60,11 +59,14 @@ public interface PrintList {
             }
 
         }
-        bs.printReceipt("-------------------------------------------");                                 //打印赠送商品
+        if(a[0] != 0){                                                                                              //有赠送商品时才打印相关赠送信息
+            bs.printReceipt("-------------------------------------------");                                 //打印赠送商品
             bs.printReceipt("赠送商品：");
-        for(String s:str){
-            bs.printReceipt("名称：" + s + "    数量：" + a[j] );
-            j++;}
+            for(String s:str){
+                bs.printReceipt("名称：" + s + "    数量：" + a[j] );
+                j++;}
+        }
+
         bs.printReceipt("-------------------------------------------");                                 //打印表尾
         bs.printReceipt("总计：" + df.format(sum) + "（元）" + "  节省：" + df.format(save) + "（元）" +
                 "  商品总数：" + n +"（件）");
