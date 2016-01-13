@@ -1,6 +1,9 @@
 *.class
 ignore.xml
 
+inspection/*
+_windows/*
 out/*
 .idea/vcs.xml
 .idea/workspace.xml
+image/Thumbs.db

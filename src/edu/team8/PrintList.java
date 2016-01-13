@@ -29,31 +29,31 @@ public interface PrintList {
         for(GoodExtends ge:xiaoyu)
         {
             if(ge.getDiscount() <= 1) {             //原价或打折
-                bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getCount() + ge.getUnit() + "\t"
-                        + df.format(ge.getPrice()) + "\t" + df.format(ge.getDiscount() * ge.getCount() * ge.getPrice()));  //打印信息
+                bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getTotalCount() + ge.getUnit() + "\t"
+                        + df.format(ge.getPrice()) + "\t" + df.format(ge.getDiscount() * ge.getTotalCount() * ge.getPrice()));  //打印信息
 
-                sum += ge.getDiscount() * ge.getCount() * ge.getPrice();
-                save += (1 - ge.getDiscount()) * ge.getCount() * ge.getPrice();                            //打折
-                n += ge.getCount();                                                                     //计算商品总数
+                sum += ge.getDiscount() * ge.getTotalCount() * ge.getPrice();
+                save += (1 - ge.getDiscount()) * ge.getTotalCount() * ge.getPrice();                            //打折
+                n += ge.getTotalCount();                                                                     //计算商品总数
             }
             else if(ge.getDiscount() > 1){                                   //买赠 第二轮迭代
-                if(ge.getCount() <= ge.getDiscount()){                        //商品买赠 但是购买数目少于满赠条件
-                    bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getCount() + ge.getUnit() + "\t"
-                            + df.format(ge.getPrice()) + "\t" + df.format(ge.getCount() * ge.getPrice()));  //打印信息
+                if(ge.getTotalCount() <= ge.getDiscount()){                        //商品买赠 但是购买数目少于满赠条件
+                    bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getTotalCount() + ge.getUnit() + "\t"
+                            + df.format(ge.getPrice()) + "\t" + df.format(ge.getTotalCount() * ge.getPrice()));  //打印信息
 
-                    sum += ge.getCount() * ge.getPrice();
-                    n += ge.getCount();                                                                     //计算商品总数
+                    sum += ge.getTotalCount() * ge.getPrice();
+                    n += ge.getTotalCount();                                                                     //计算商品总数
                 }
-                else if(ge.getCount()>ge.getDiscount()) {                     //商品买赠且数目符合买赠条件
-                    bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getCount() + ge.getUnit() + "\t"
+                else if(ge.getTotalCount()>ge.getDiscount()) {                     //商品买赠且数目符合买赠条件
+                    bs.printReceipt(ge.getBarcode() + "\t" + ge.getName() + "\t" + ge.getTotalCount() + ge.getUnit() + "\t"
                             + df.format(ge.getPrice()) + "\t" +
-                            df.format(ge.getCount() * ge.getPrice()-ge.getPrice()*(int)((ge.getCount()/(ge.getDiscount()+1)))));  //打印信息
-                    sum += ge.getCount() * ge.getPrice()-ge.getPrice()*(int)((ge.getCount()/(ge.getDiscount()+1)));
-                    save += ge.getPrice()*(int)((ge.getCount()/(ge.getDiscount()+1)));
-                    n += ge.getCount();                                                                  //计算商品总数
+                            df.format(ge.getTotalCount() * ge.getPrice()-ge.getPrice()*(int)((ge.getTotalCount()/(ge.getDiscount()+1)))));  //打印信息
+                    sum += ge.getTotalCount() * ge.getPrice()-ge.getPrice()*(int)((ge.getTotalCount()/(ge.getDiscount()+1)));
+                    save += ge.getPrice()*(int)((ge.getTotalCount()/(ge.getDiscount()+1)));
+                    n += ge.getTotalCount();                                                                  //计算商品总数
 
                     str.add(ge.getName());                                                              //把赠送商品名称存入列表
-                    a[i]=(int)((ge.getCount()/(ge.getDiscount()+1)));                                   //把赠送商品数目存入数组
+                    a[i]=(int)((ge.getTotalCount()/(ge.getDiscount()+1)));                                   //把赠送商品数目存入数组
                     i++;
                 }
             }
