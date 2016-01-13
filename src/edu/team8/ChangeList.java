@@ -2,6 +2,8 @@ package edu.team8;
 
 import edu.team8.classes.Good;
 import edu.team8.classes.GoodExtends;
+import edu.team8.classes.TicketInfo;
+import edu.team8.classes.Vip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,5 +60,34 @@ public interface ChangeList {
                 list1.remove(i);
         }
         return list1;
+    }
+
+    /**
+     * 第三轮迭代
+     */
+    public static ArrayList<TicketInfo> account(ArrayList<GoodExtends> goodList,ArrayList<Vip> vipInfo)
+    {
+        ArrayList<TicketInfo> tickietList = new ArrayList<TicketInfo>();
+        int i=0;
+        for(GoodExtends good:goodList)
+        {
+            if(good.getPreferType()==Good.NORMAL)
+            {
+                tickietList.get(i).setPaidPrice(good.getPrice());
+            }
+            else if(good.getPreferType()==Good.DISCOUNT)
+            {
+                if(vipInfo==null)
+                    tickietList.get(i).setPaidPrice(good.getPrice()*good.getDiscount());
+                else
+                    tickietList.get(i).setPaidPrice(good.getPrice()*good.getVipDiscount());
+            }
+            else if(good.getPreferType()==Good.PROMOTION)
+            {
+
+            }
+            i++;
+        }
+        return tickietList;
     }
 }
