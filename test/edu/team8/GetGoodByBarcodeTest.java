@@ -13,20 +13,22 @@ public class GetGoodByBarcodeTest {
     @Test
     public void testMysqlConnect()
     {
-        new GetGoodByBarcode();
+        new GetInfoInSQL();
     }
 
     @Test
     public void testFind()
     {
-        GetGoodByBarcode e = new GetGoodByBarcode();
-        //如果输入条码有误
+        GetInfoInSQL e = new GetInfoInSQL();
+        //如果输入条码正确
         System.out.println(e.findByBarcode("ITEM0011"));
+        //如果输入条码有误
+        System.out.println(e.findByBarcode("ITEM01"));
     }
 
     @Test
     public void testGetItemInfo() throws Exception {
-        GetGoodByBarcode e = new GetGoodByBarcode();
+        GetInfoInSQL e = new GetInfoInSQL();
         String s = "ITEM0001,ITEM0,ITEM0002,ITEM0008,ITEM0003,ITEM005,ITEM0001";
         ArrayList<Good> a = e.getItemInfo(s.split(","));
         for(Good g:a){
@@ -37,7 +39,7 @@ public class GetGoodByBarcodeTest {
     @Test
     public void testTotal() throws Exception {
         String s = "ITEM0001,ITEM0,ITEM0002,ITEM0008,ITEM0003,ITEM005,ITEM0001";
-        ArrayList<Good> a = GetGoodByBarcode.makeGoodList(s);
+        ArrayList<Good> a = GetInfoInSQL.makeGoodList(s);
         for(Good g:a){
             System.out.println(g);
         }

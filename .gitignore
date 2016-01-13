@@ -4,3 +4,4 @@ ignore.xml
 out/*
 .idea/vcs.xml
 .idea/workspace.xml
+image/Thumbs.db
