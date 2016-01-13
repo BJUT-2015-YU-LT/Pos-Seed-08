@@ -30,8 +30,8 @@ public class PrintListTest {
         for(GoodExtends ge:t)
         {
             System.out.println("商品BarCode:   " + ge.getBarcode() + "   " + "名称:   " + ge.getName() + "   " +  //打印信息
-                    "数量:   " + ge.getCount() + ge.getUnit() + ",   " + "单价:   " + ge.getPrice() + "   " + "小计:   " + ge.getCount()*ge.getPrice());
-            sum+=  ge.getCount()*ge.getPrice();
+                    "数量:   " + ge.getTotalCount() + ge.getUnit() + ",   " + "单价:   " + ge.getPrice() + "   " + "小计:   " + ge.getTotalCount()*ge.getPrice());
+            sum+=  ge.getTotalCount()*ge.getPrice();
         }
         System.out.println("总计:" + sum);
     }

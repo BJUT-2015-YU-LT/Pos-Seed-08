@@ -69,10 +69,12 @@ public class GetInfoInSQL {
                 /**
                  * 需求 2 添加 discount
                  * 需求 5 添加 vipDiscount
+                 * 进而添加 preferType
                  */
+                int preferType = resultList.getInt("prefer_type");
                 double discount = resultList.getDouble("discount");
                 double vipDiscount = resultList.getDouble("vip_discount");
-                Good result = new Good(barcode, name, unit, price,discount,vipDiscount);
+                Good result = new Good(barcode, name, unit, price ,discount,vipDiscount,preferType);
                 return result;
             }
         } catch (SQLException e) {
