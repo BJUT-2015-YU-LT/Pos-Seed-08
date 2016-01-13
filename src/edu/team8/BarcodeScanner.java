@@ -123,125 +123,165 @@ public class BarcodeScanner extends JFrame implements ActionListener {
         eastPanel.setPreferredSize(new Dimension(400,0));
 
         //将按钮添加到窗体中
-        btn_1=new JButton("可乐");                               //各种商品按钮
+        btn_1=new JButton();                                              //各种商品按钮
+        btn_1.setToolTipText("可乐");
         btn_1.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_1.setForeground(Color.RED);
+        //btn_1.setForeground(Color.RED);
+        btn_1.setIcon(new ImageIcon("/D:/image/ITEM0000.png"));
         btn_1.addActionListener(this);
         westPanel.add(btn_1);
 
-        btn_2=new JButton("红牛");
-        btn_2.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_2.setForeground(Color.RED);
+        btn_2=new JButton();
+        btn_2.setToolTipText("红牛");
+        //btn_2.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_2.setForeground(Color.RED);
+        btn_2.setIcon(new ImageIcon("/D:/image/ITEM0001.png"));
         btn_2.addActionListener(this);
         westPanel.add(btn_2);
 
-        btn_3=new JButton("薯片");
-        btn_3.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_3.setForeground(Color.ORANGE);
+        btn_3=new JButton();
+        btn_3.setToolTipText("薯片");
+        //btn_3.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_3.setForeground(Color.ORANGE);
+        btn_3.setIcon(new ImageIcon("/D:/image/ITEM0002.png"));
         btn_3.addActionListener(this);
         westPanel.add(btn_3);
 
-        btn_4=new JButton("汉堡");
-        btn_4.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_4.setForeground(Color.ORANGE);
+        btn_4=new JButton();
+        btn_4.setToolTipText("汉堡");
+        //btn_4.setFont(new Font("幼圆", Font.BOLD,15));
+        //btn_4.setForeground(Color.ORANGE);
+        btn_4.setIcon(new ImageIcon("/D:/image/ITEM0003.png"));
         btn_4.addActionListener(this);
         westPanel.add(btn_4);
 
-        btn_5=new JButton("雨伞");
-        btn_5.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_5.setForeground(Color.orange);
+        btn_5=new JButton();
+        btn_5.setToolTipText("雨伞");
+        //btn_5.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_5.setForeground(Color.orange);
+        btn_5.setIcon(new ImageIcon("/D:/image/ITEM0004.png"));
         btn_5.addActionListener(this);
         westPanel.add(btn_5);
 
-        btn_6=new JButton("抱枕");
-        btn_6.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_6.setForeground(Color.orange);
+        btn_6=new JButton();
+        btn_6.setToolTipText("抱枕");
+        //btn_6.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_6.setForeground(Color.orange);
+        btn_6.setIcon(new ImageIcon("/D:/image/ITEM0005.png"));
         btn_6.addActionListener(this);
         westPanel.add(btn_6);
 
-        btn_7=new JButton("屏幕");
-        btn_7.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_7.setForeground(Color.YELLOW);
+        btn_7=new JButton();
+        btn_7.setToolTipText("显示屏");
+        //btn_7.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_7.setForeground(Color.YELLOW);
+        btn_7.setIcon(new ImageIcon("/D:/image/ITEM0006.png"));
         btn_7.addActionListener(this);
         westPanel.add(btn_7);
 
-        btn_8=new JButton("增高垫");
-        btn_8.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_8.setForeground(Color.YELLOW);
+        btn_8=new JButton();
+        btn_8.setToolTipText("增高垫");
+        //btn_8.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_8.setForeground(Color.YELLOW);
+        btn_8.setIcon(new ImageIcon("/D:/image/ITEM0007.png"));
         btn_8.addActionListener(this);
         westPanel.add(btn_8);
 
-        btn_9=new JButton("口罩");
-        btn_9.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_9.setForeground(Color.GREEN);
+        btn_9=new JButton();
+        btn_9.setToolTipText("口罩");
+        //btn_9.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_9.setForeground(Color.GREEN);
+        btn_9.setIcon(new ImageIcon("/D:/image/ITEM0008.png"));
         btn_9.addActionListener(this);
         westPanel.add(btn_9);
 
-        btn_10=new JButton("RPG");
-        btn_10.setFont(new Font("Gulim", Font.BOLD,20));
-        btn_10.setForeground(Color.GREEN);
+        btn_10=new JButton();
+        btn_10.setToolTipText("RPG");
+        //btn_10.setFont(new Font("Gulim", Font.BOLD,20));
+        //btn_10.setForeground(Color.GREEN);
+        btn_10.setIcon(new ImageIcon("/D:/image/ITEM0009.png"));
         btn_10.addActionListener(this);
         westPanel.add(btn_10);
 
-        btn_12=new JButton("咖啡");
-        btn_12.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_12.setForeground(Color.CYAN);
+        btn_12=new JButton();
+        btn_12.setToolTipText("咖啡");
+        //btn_12.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_12.setForeground(Color.CYAN);
+        btn_12.setIcon(new ImageIcon("/D:/image/ITEM0010.png"));
         btn_12.addActionListener(this);
         westPanel.add(btn_12);
 
-        btn_13=new JButton("二锅头");
-        btn_13.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_13.setForeground(Color.CYAN);
+        btn_13=new JButton();
+        btn_13.setToolTipText("二锅头");
+        //btn_13.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_13.setForeground(Color.CYAN);
+        btn_13.setIcon(new ImageIcon("/D:/image/ITEM0011.png"));
         btn_13.addActionListener(this);
         westPanel.add(btn_13);
 
-        btn_14=new JButton("方便面");
-        btn_14.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_14.setForeground(Color.BLUE);
+        btn_14=new JButton();
+        btn_14.setToolTipText("方便面");
+        //btn_14.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_14.setForeground(Color.BLUE);
+        btn_14.setIcon(new ImageIcon("/D:/image/ITEM0012.png"));
         btn_14.addActionListener(this);
         westPanel.add(btn_14);
 
-        btn_15=new JButton("肉松饼");
-        btn_15.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_15.setForeground(Color.BLUE);
+        btn_15=new JButton();
+        btn_15.setToolTipText("肉松饼");
+        //btn_15.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_15.setForeground(Color.BLUE);
+        btn_15.setIcon(new ImageIcon("/D:/image/ITEM0013.png"));
         btn_15.addActionListener(this);
         westPanel.add(btn_15);
 
-        btn_16=new JButton("拖鞋");
-        btn_16.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_16.setForeground(Color.MAGENTA);
+        btn_16=new JButton();
+        btn_16.setToolTipText("拖鞋");
+        //btn_16.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_16.setForeground(Color.MAGENTA);
+        btn_16.setIcon(new ImageIcon("/D:/image/ITEM0014.png"));
         btn_16.addActionListener(this);
         westPanel.add(btn_16);
 
-        btn_17=new JButton("鼠标");
-        btn_17.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_17.setForeground(Color.MAGENTA);
+        btn_17=new JButton();
+        btn_17.setToolTipText("鼠标");
+        //btn_17.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_17.setForeground(Color.MAGENTA);
+        btn_17.setIcon(new ImageIcon("/D:/image/ITEM0015.png"));
         btn_17.addActionListener(this);
         westPanel.add(btn_17);
 
-        btn_18=new JButton("电池");
-        btn_18.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_18.setForeground(Color.GRAY);
+        btn_18=new JButton();
+        btn_18.setToolTipText("电池");
+        //btn_18.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_18.setForeground(Color.GRAY);
+        btn_18.setIcon(new ImageIcon("/D:/image/ITEM0016.png"));
         btn_18.addActionListener(this);
         westPanel.add(btn_18);
 
-        btn_19=new JButton("卫生纸");
-        btn_19.setFont(new Font("幼圆", Font.BOLD,20));
-        btn_19.setForeground(Color.GRAY);
+        btn_19=new JButton();
+        btn_19.setToolTipText("卫生纸");
+        //btn_19.setFont(new Font("幼圆", Font.BOLD,20));
+        //btn_19.setForeground(Color.GRAY);
+        btn_19.setIcon(new ImageIcon("/D:/image/ITEM0017.png"));
         btn_19.addActionListener(this);
         westPanel.add(btn_19);
 
-        btn_20=new JButton("C4");
-        btn_20.setFont(new Font("Gulim", Font.BOLD,20));
+        btn_20=new JButton();
+        btn_20.setToolTipText("C4");
+        //btn_20.setFont(new Font("Gulim", Font.BOLD,20));
+        btn_20.setIcon(new ImageIcon("/D:/image/ITEM0018.png"));
         btn_20.addActionListener(this);
         westPanel.add(btn_20);
 
-        btn_21=new JButton("随机出错");
-        btn_21.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_21=new JButton();
+        btn_21.setToolTipText("随机出错");
+        //btn_21.setFont(new Font("幼圆", Font.BOLD,20));
+        btn_21.setIcon(new ImageIcon("/D:/image/APTX4869.png"));
         btn_21.addActionListener(this);
         westPanel.add(btn_21);
 
-        btn_11=new JButton("提交");                                           //提交按钮
+        btn_11=new JButton("<<提交>>");                                           //提交按钮
         btn_11.setFont(new Font("幼圆", Font.BOLD,20));
         btn_11.addActionListener(this);
         southPanel.add(btn_11);
