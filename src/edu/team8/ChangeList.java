@@ -65,22 +65,28 @@ public interface ChangeList {
     /**
      * 第三轮迭代
      */
-    public static ArrayList<TicketInfo> account(ArrayList<GoodExtends> goodList,ArrayList<Vip> vipInfo)
-    {
-        ArrayList<TicketInfo> tickietList = new ArrayList<TicketInfo>();
+    public static TicketInfo account(ArrayList<GoodExtends> goodList,ArrayList<Vip> vipInfo)
+    {/*(ArrayList<GoodExtends> paidList, ArrayList<GoodExtends> savedList,
+                      double paidPrice, double savedPrice, int creditPoint)*/
+        TicketInfo ticket = null;
+        ArrayList<GoodExtends> paidList = new ArrayList<GoodExtends>();
+        ArrayList<GoodExtends> savedList = new ArrayList<GoodExtends>();
+        double paidPrice=0,savedPrice=0;
+        int creditPoint=0;
+
         int i=0;
         for(GoodExtends good:goodList)
         {
             if(good.getPreferType()==Good.NORMAL)
             {
-                tickietList.get(i).setPaidPrice(good.getPrice());
+                paidList.get(i).setPrice(good.getPrice());
             }
             else if(good.getPreferType()==Good.DISCOUNT)
             {
                 if(vipInfo==null)
-                    tickietList.get(i).setPaidPrice(good.getPrice()*good.getDiscount());
+                    paidList.get(i).setPrice(good.getPrice()*good.getDiscount());
                 else
-                    tickietList.get(i).setPaidPrice(good.getPrice()*good.getVipDiscount());
+                    paidList.get(i).setPrice(good.getPrice()*good.getVipDiscount());
             }
             else if(good.getPreferType()==Good.PROMOTION)
             {
@@ -88,6 +94,13 @@ public interface ChangeList {
             }
             i++;
         }
-        return tickietList;
+        ticket.setPaidList(paidList);
+        ticket.setSavedList(savedList);
+        ticket.setPaidPrice(paidPrice);
+        ticket.setSavedPrice(savedPrice);
+        ticket.setCreditPoint(creditPoint);
+        return ticket;
     }
+
+
 }
