@@ -2,6 +2,7 @@ package edu.team8;
 
 import edu.team8.classes.Good;
 import edu.team8.classes.GoodExtends;
+import edu.team8.classes.TicketInfo;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -402,8 +403,9 @@ public class BarcodeScanner extends JFrame implements ActionListener {
             GetInfoInSQL.setWindow(this);
             ArrayList<Good> goods = GetInfoInSQL.makeGoodList(barcodeText);
             ArrayList<GoodExtends> ge= ChangeList.processChangeList(goods);
-            PrintList.PrintGoodList(ge,this);
-        }
+           // PrintTicket.PrintTicketList(TicketInfo ti,BarcodeScanner bs);
+
+         }
     }
 
     public void printLog(String log)

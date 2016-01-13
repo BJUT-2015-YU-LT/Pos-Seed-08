@@ -20,6 +20,16 @@ public class GoodExtends extends Good {
     }
 
     /**
+     * 复制构造函数
+     * @param ge
+     */
+    public GoodExtends(GoodExtends ge){
+        super(ge.barcode,ge.name,ge.unit,ge.price,ge.discount,ge.vipDiscount,ge.preferType);
+        this.totalCount=ge.totalCount;
+        this.paidCount=ge.paidCount;
+    }
+
+    /**
      * 全参数的测试构造函数
      * @param barcode
      * @param name
@@ -39,6 +49,9 @@ public class GoodExtends extends Good {
         this.paidCount = paidCount;
     }
 
+    /**
+     * 数量增加
+     */
     public void countUp(){
         this.totalCount++;
         switch (this.preferType)
@@ -53,6 +66,9 @@ public class GoodExtends extends Good {
         }
     }
 
+    /**
+     * 数量减少
+     */
     public void countDown()
     {
         if(this.totalCount==0)return;

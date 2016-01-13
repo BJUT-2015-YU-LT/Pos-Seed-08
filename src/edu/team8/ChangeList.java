@@ -65,19 +65,27 @@ public interface ChangeList {
     /**
      * 第三轮迭代
      */
-    public static TicketInfo account(ArrayList<GoodExtends> goodList,ArrayList<Vip> vipInfo)
-    {/*(ArrayList<GoodExtends> paidList, ArrayList<GoodExtends> savedList,
-                      double paidPrice, double savedPrice, int creditPoint)*/
-        TicketInfo ticket = null;
+    public static TicketInfo account(ArrayList<GoodExtends> goodList,Vip vipInfo)
+    {
+        TicketInfo ticket = new TicketInfo();
         ArrayList<GoodExtends> paidList = new ArrayList<GoodExtends>();
         ArrayList<GoodExtends> savedList = new ArrayList<GoodExtends>();
         double paidPrice=0,savedPrice=0;
         int creditPoint=0;
 
-        int i=0;
         for(GoodExtends good:goodList)
         {
-            if(good.getPreferType()==Good.NORMAL)
+            switch(good.getPreferType())
+            {
+                case Good.NORMAL:
+                    paidList.add(new GoodExtends(good));
+                    break;
+                case Good.DISCOUNT:
+                    break;
+                case Good.PROMOTION:
+                    break;
+            }
+          /* if(==Good.NORMAL)
             {
                 paidList.get(i).setPrice(good.getPrice());
             }
@@ -91,8 +99,7 @@ public interface ChangeList {
             else if(good.getPreferType()==Good.PROMOTION)
             {
 
-            }
-            i++;
+            }*/
         }
         ticket.setPaidList(paidList);
         ticket.setSavedList(savedList);
@@ -101,6 +108,4 @@ public interface ChangeList {
         ticket.setCreditPoint(creditPoint);
         return ticket;
     }
-
-
 }

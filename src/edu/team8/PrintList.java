@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by 魏来 on 2016/1/6.
  */
-public interface PrintList {
+/*public interface PrintList {
     public static void PrintGoodList(ArrayList<GoodExtends> xiaoyu,BarcodeScanner bs){
         double sum = 0;                                                           //总价
         double save = 0;                                                              //节省
@@ -20,7 +20,7 @@ public interface PrintList {
         int i=0,j=0;                                                                //循环计数器
 
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
-        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss ", Locale.CHINA);       // 时间格式
+        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ", Locale.CHINA);       // 时间格式
 
         bs.printReceipt("\t                     商店购物小票清单");                            //表头信息
         bs.printReceipt("\t\t       打印时间：  " + dft.format(d));                              //打印时间
@@ -72,4 +72,4 @@ public interface PrintList {
                 "  商品总数：" + n +"（件）");
         bs.printReceipt("**********************************************************************************");
     }
-}
+}*/
