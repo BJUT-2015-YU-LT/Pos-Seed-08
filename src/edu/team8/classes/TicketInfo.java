@@ -75,4 +75,15 @@ public class TicketInfo {
     public void setCreditPoint(int creditPoint) {
         this.creditPoint = creditPoint;
     }
+
+    @Override
+    public String toString() {
+        return "TicketInfo{" +
+                "paidList=" + paidList +
+                ", savedList=" + savedList +
+                ", paidPrice=" + paidPrice +
+                ", savedPrice=" + savedPrice +
+                ", creditPoint=" + creditPoint +
+                '}';
+    }
 }

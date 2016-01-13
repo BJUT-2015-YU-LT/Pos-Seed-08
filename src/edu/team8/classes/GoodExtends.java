@@ -90,10 +90,10 @@ public class GoodExtends extends Good {
      * @return
      */
     @Override
-    public String toString()
-    {
-        String s = "Extend:"+super.toString();
-        s+="{[totalCount="+totalCount+"][paidCount="+paidCount+"]}\n";
-        return s;
+    public String toString() {
+        return "GoodExtends{" +
+                "totalCount=" + totalCount +
+                ", paidCount=" + paidCount +
+                '}';
     }
 }

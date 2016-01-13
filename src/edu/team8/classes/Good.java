@@ -154,12 +154,15 @@ public class Good {
      */
     @Override
     public String toString() {
-        /**
-         * 因需求 2 添加字段,为测试所需, 故增加 [discount:]
-         * 因需求 5 添加字段,为测试所需, 故增加 [vipDiscount]
-         */
-        return "Good{[barcode:"+barcode+"][name:"+name+"][unit:"+unit
-                    +"][price:"+price+"][discount:"+discount+"][vipDiscount:"+vipDiscount+"]}";
+        return "Good{" +
+                "barcode='" + barcode + '\'' +
+                ", name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", vipDiscount=" + vipDiscount +
+                ", preferType=" + preferType +
+                '}';
     }
 
     /**
