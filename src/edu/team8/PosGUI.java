@@ -112,7 +112,7 @@ public class PosGUI extends JFrame implements ActionListener
         vipcodeBorderPanel.add(vipcode);
         centerEastPanel.add(vipcodeBorderPanel,"North");
 
-        accountLabel = new JLabel("待结算");
+        accountLabel = new JLabel("等待结算");
         accountLabel.setFont(new Font("黑体",Font.BOLD,30));
         accountPanel = new JPanel(new FlowLayout());
         accountPanel.setBorder(BorderFactory.createTitledBorder ("结算信息"));
@@ -373,6 +373,7 @@ public class PosGUI extends JFrame implements ActionListener
                     printButton.setEnabled(false);
                     goodList.clear();
                     goodsTable.clear();
+                    accountLabel.setText("等待结算");
                 }
             }
             else
