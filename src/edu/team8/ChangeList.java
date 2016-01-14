@@ -57,13 +57,13 @@ public class ChangeList
                     }
                     break;
             }
-            paidList.add(new GoodExtends(good));
+            paidList.add(new GoodExtends(oldGood));
             paidPrice+=good.getPrice()*good.getPaidCount();
         }
         paidPrice=new BigDecimal(paidPrice).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue();
         savedPrice=new BigDecimal(savedPrice).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue();
         if(vipInfo != null){
-            sqlVisitor.addVipCredit(getCredit(paidPrice),vipInfo.getVipCode());
+            sqlVisitor.addVipCredit(getCredit(paidPrice,vipInfo.getVipCredit()),vipInfo.getVipCode());
             vipInfo = sqlVisitor.findVipByCode(vipInfo.getVipCode());
         }
 
@@ -75,12 +75,12 @@ public class ChangeList
         return ticket;
     }
 
-    private static int getCredit(double paid){
+    private static int getCredit(double paid,int oldCredit){
         int credit = 0;
         if(paid>0){
-            if (paid<=200){
+            if (oldCredit<=200){
                 credit = (int) Math.floor(paid/5)*1;
-            }else if(paid<=500){
+            }else if(oldCredit<=500){
                 credit = (int) Math.floor(paid/5)*3;
             }else{
                 credit = (int) Math.floor(paid/5)*5;
