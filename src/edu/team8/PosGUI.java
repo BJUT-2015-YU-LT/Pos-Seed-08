@@ -20,6 +20,8 @@ import java.util.Vector;
  */
 public class PosGUI extends JFrame implements ActionListener
 {
+    private static final String[] vipList = {"","VIP001","VIP002","VIP003","VIP004","KONAN"};
+
     private String barcodeText;
     private String logText;
 
@@ -31,11 +33,13 @@ public class PosGUI extends JFrame implements ActionListener
     private JScrollPane tableScroll;
     private JScrollPane ticketScroll;
 
+    private JPanel vipcodeBorderPanel;
     private JPanel tableBorderPanel;
     private JPanel ticketBorderPanel;
 
     private JTable itemTable;
 
+    private JComboBox vipcode;
     private JTextArea jta;
     private JTextArea ticketField;
 
@@ -90,23 +94,19 @@ public class PosGUI extends JFrame implements ActionListener
         centerPanel=new JPanel(new GridLayout(1,2));
         centerEastPanel=new JPanel(new BorderLayout());
 
-        DefaultTableModel goodTableModel = new DefaultTableModel();
-        Vector<Vector<Object>> tableData = new Vector<Vector<Object>>();
-        Vector<String> tableName = new Vector<String>();
-        goodTableModel.setDataVector(tableData,tableName);
-        tableName.add("名称");
-        itemTable = new JTable(goodTableModel);
-        itemTable.setEnabled(false);
         jta=new JTextArea();
-        Vector<Object> row = new Vector<Object>();
-        row.add(new Integer(3));
-        tableData.add(row);
 
         tableScroll = new JScrollPane(itemTable);
         tableBorderPanel = new JPanel(new GridLayout());
         tableBorderPanel.setBorder(BorderFactory.createTitledBorder ("已扫描商品"));
         tableBorderPanel.add(tableScroll);
-        centerEastPanel.add(tableBorderPanel);
+        centerEastPanel.add(tableBorderPanel,"Center");
+
+        vipcode = new JComboBox(vipList);
+        vipcodeBorderPanel = new JPanel(new GridLayout());
+        vipcodeBorderPanel.setBorder(BorderFactory.createTitledBorder ("会员编号"));
+        vipcodeBorderPanel.add(vipcode);
+        centerEastPanel.add(vipcodeBorderPanel,"North");
 
         ticketField = new JTextArea();
         ticketField.setEditable(false);
@@ -119,17 +119,18 @@ public class PosGUI extends JFrame implements ActionListener
         //将商品按钮添加到窗体中
         this.addItemButton();
 
-        //打印按钮
-        printButton=new JButton("打印");
-        printButton.setFont(new Font("幼圆", Font.BOLD,20));
-        printButton.addActionListener(this);
-        southPanel.add(printButton);
 
         //结算按钮
         countButton=new JButton("结算");
         countButton.setFont(new Font("幼圆", Font.BOLD,20));
         countButton.addActionListener(this);
         southPanel.add(countButton);
+
+        //打印按钮
+        printButton=new JButton("打印");
+        printButton.setFont(new Font("幼圆", Font.BOLD,20));
+        printButton.addActionListener(this);
+        southPanel.add(printButton);
 
         this.add(westPanel,"West");
         this.add(southPanel,"South");
