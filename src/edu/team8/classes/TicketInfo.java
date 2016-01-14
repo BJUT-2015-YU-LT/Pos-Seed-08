@@ -6,34 +6,35 @@ import java.util.ArrayList;
  * Created by 知昊 on 2016/1/13.
  */
 public class TicketInfo {
-    ArrayList<GoodExtends> paidList;
-    ArrayList<GoodExtends> savedList;
-    double paidPrice;
-    double savedPrice;
-    int creditPoint;
+    private ArrayList<GoodExtends> paidList;
+    private ArrayList<GoodExtends> savedList;
+    private double paidPrice;
+    private double savedPrice;
+    private Vip vipInfo;
 
     public TicketInfo(){
         this.paidList=null;
         this.savedList=null;
         this.paidPrice=0;
         this.savedPrice=0;
-        this.creditPoint=0;
+        this.vipInfo=null;
     }
+
     /**
      * 全参数构造函数
      * @param paidList
      * @param savedList
      * @param paidPrice
      * @param savedPrice
-     * @param creditPoint
+     * @param vipInfo
      */
     public TicketInfo(ArrayList<GoodExtends> paidList, ArrayList<GoodExtends> savedList,
-                      double paidPrice, double savedPrice, int creditPoint) {
+                      double paidPrice, double savedPrice, Vip vipInfo) {
         this.paidList = paidList;
         this.savedList = savedList;
         this.paidPrice = paidPrice;
         this.savedPrice = savedPrice;
-        this.creditPoint = creditPoint;
+        this.vipInfo = vipInfo;
     }
 
     public ArrayList<GoodExtends> getPaidList() {
@@ -68,12 +69,12 @@ public class TicketInfo {
         this.savedPrice = savedPrice;
     }
 
-    public int getCreditPoint() {
-        return creditPoint;
+    public Vip getVipInfo() {
+        return vipInfo;
     }
 
-    public void setCreditPoint(int creditPoint) {
-        this.creditPoint = creditPoint;
+    public void setVipInfo(Vip vipInfo) {
+        this.vipInfo = vipInfo;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class TicketInfo {
                 ", savedList=" + savedList +
                 ", paidPrice=" + paidPrice +
                 ", savedPrice=" + savedPrice +
-                ", creditPoint=" + creditPoint +
+                ", vipInfo=" + vipInfo +
                 '}';
     }
 }

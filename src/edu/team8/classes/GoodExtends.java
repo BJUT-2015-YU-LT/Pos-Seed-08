@@ -56,6 +56,7 @@ public class GoodExtends extends Good {
         this.totalCount++;
         switch (this.preferType)
         {
+            case Good.NORMAL:
             case Good.DISCOUNT:
                 paidCount++;
                 break;
@@ -107,7 +108,7 @@ public class GoodExtends extends Good {
      */
     @Override
     public String toString() {
-        return "GoodExtends{" +
+        return "GoodExtends{" + super.toString() +
                 "totalCount=" + totalCount +
                 ", paidCount=" + paidCount +
                 '}';

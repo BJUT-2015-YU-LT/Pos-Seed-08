@@ -132,12 +132,12 @@ public class Good {
     private void fixData()
     {
         if(this.preferType==PROMOTION){
-            if(this.discount<=0)
+            if(this.discount<=0 || this.discount==1)
             {
                 this.preferType=NORMAL;
                 this.discount=1;
             }
-            else if(this.discount >1)
+            else if(this.discount <1)
             {
                 this.preferType=DISCOUNT;
             }
