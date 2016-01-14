@@ -1,5 +1,6 @@
 package edu.team8;
 
+import edu.team8.classes.Good;
 import edu.team8.classes.GoodExtends;
 import edu.team8.classes.TicketInfo;
 
@@ -35,9 +36,16 @@ public class PrintTicket {
         receipt.add("=======================================================");
         receipt.add("商品条码\t      名称\t 数量\t    单价(元)\t 小计(元)");
         for(GoodExtends ge:ti.getPaidList()) {
+            if(ge.getPreferType() == Good.DISCOUNT){                                //商品有折扣
+                receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
+                        + df.format(ge.getPrice()) + "\t " + df.format(ge.getDiscount() * ge.getVipDiscount() * ge.getPaidCount() * ge.getPrice()));  //打印信息
+                n += ge.getTotalCount();                                                      //计算商品总数
+            }
+            else if (ge.getPreferType() ==  Good.NORMAL){                           //商品不打折
                 receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
                         + df.format(ge.getPrice()) + "\t " + df.format(ge.getPaidCount() * ge.getPrice()));  //打印信息
                 n += ge.getTotalCount();                                                      //计算商品总数
+            }
         }
         if(ti.getSavedList().size() != 0){                                                           //有赠送商品时才打印相关赠送信息 迭代二
             receipt.add("-------------------------------------------------------");                 //打印赠送商品
