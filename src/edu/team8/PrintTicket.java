@@ -56,11 +56,11 @@ public class PrintTicket {
         return print(receipt);
     }
 
-    private static int print(ArrayList<String> ticketStr){
+    private static int print(ArrayList<String> ticketStr){                              //打印
         for (String s:ticketStr){
             if(paperRest>0){
                 bs.printReceipt(s);
-                paperRest--;
+                paperRest--;                                                            //每打一行 纸张余量减一
             }else{
                 return -1;
             }
@@ -72,7 +72,7 @@ public class PrintTicket {
         PrintTicket.bs = bs;
     }
 
-    public static void fullPaper() {
+    public static void fullPaper() {                        //补纸
         PrintTicket.paperRest = 500;
     }
 }
