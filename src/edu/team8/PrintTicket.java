@@ -6,44 +6,73 @@ import edu.team8.classes.TicketInfo;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 /**
  * Created by 魏来 on 2016/1/13.
  */
-public interface PrintTicket {
-    public static void PrintTicketList(TicketInfo ti,PosGUI bs){
-        int n = 0;
-        Date d = new Date();                                                        //打印时间
-        DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式
-        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ", Locale.CHINA);       // 时间格式
+public class PrintTicket {
+    private static int paperRest = 20;
+    private static PosGUI bs;
 
-        bs.printReceipt("\t                商店购物小票清单");                            //表头信息
+    public static int PrintTicket(TicketInfo ti){
+        int n = 0;
+        Date d = new Date();                                                                       //打印时间
+        DecimalFormat df = new DecimalFormat("0.00");                                             //保留两位小数格式
+        DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ", Locale.CHINA);      //时间格式
+
+        ArrayList<String> receipt = new ArrayList<String>();
+
+        receipt.add("");
+        receipt.add("\t                商店购物小票清单");                            //表头信息
         if(ti.getVipInfo() != null){
-            bs.printReceipt("会员编号： " + ti.getVipInfo().getVipCode() + "   会员积分： " + ti.getVipInfo().getVipCredit() + "分");  //迭代三
-            bs.printReceipt("-------------------------------------------------------");
+            receipt.add("会员编号： " + ti.getVipInfo().getVipCode() + "   会员积分： " + ti.getVipInfo().getVipCredit() + "分");  //迭代三
+            receipt.add("-------------------------------------------------------");
         }
-        bs.printReceipt("打印时间：" + dft.format(d));                              //打印时间
-        bs.printReceipt("=======================================================");
-        bs.printReceipt("商品条码\t      名称\t 数量\t    单价(元)\t 小计(元)");
+        receipt.add("打印时间：" + dft.format(d));                              //打印时间
+        receipt.add("=======================================================");
+        receipt.add("商品条码\t      名称\t 数量\t    单价(元)\t 小计(元)");
         for(GoodExtends ge:ti.getPaidList()) {
-                bs.printReceipt(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
+                receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
                         + df.format(ge.getPrice()) + "\t " + df.format(ge.getPaidCount() * ge.getPrice()));  //打印信息
                 n += ge.getTotalCount();                                                      //计算商品总数
         }
-        if(ti.getSavedList() !=null){                                                           //有赠送商品时才打印相关赠送信息 迭代二
-            bs.printReceipt("-------------------------------------------------------");                 //打印赠送商品
-            bs.printReceipt("赠送商品：");
+        if(ti.getSavedList().size() != 0){                                                           //有赠送商品时才打印相关赠送信息 迭代二
+            receipt.add("-------------------------------------------------------");                 //打印赠送商品
+            receipt.add("赠送商品：");
             for(GoodExtends ge:ti.getSavedList()) {
-                bs.printReceipt("名称：" + ge.getName() + "    数量：" + (ge.getTotalCount()-ge.getPaidCount()));  //打印信息
-                n += ge.getTotalCount();                                                      //计算商品总数
+                receipt.add("名称：" + ge.getName() + "    数量：" + (ge.getTotalCount()));  //打印信息
             }
         }
 
-        bs.printReceipt("-------------------------------------------------------");                    //打印表尾
-        bs.printReceipt("总计：" + df.format(ti.getPaidPrice()) + "(元)" + "  节省：" + df.format(ti.getSavedPrice()) + "(元)" +
+        receipt.add("-------------------------------------------------------");                    //打印表尾
+        receipt.add("总计：" + df.format(ti.getPaidPrice()) + "(元)" + ((ti.getSavedPrice()!=0)?"  节省：" + df.format(ti.getSavedPrice()) + "(元)":"") +
                 "  商品总数：" + n +"(件)");
-        bs.printReceipt("*******************************************************");
+        receipt.add("*******************************************************");
+        receipt.add("");
+
+        return print(receipt);
+    }
+
+    private static int print(ArrayList<String> ticketStr){
+        for (String s:ticketStr){
+            if(paperRest>0){
+                bs.printReceipt(s);
+                paperRest--;
+            }else{
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    public static void setBs(PosGUI bs) {
+        PrintTicket.bs = bs;
+    }
+
+    public static void fullPaper() {
+        PrintTicket.paperRest = 500;
     }
 }

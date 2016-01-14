@@ -1,19 +1,14 @@
 package edu.team8;
 
-import edu.team8.classes.Good;
-import edu.team8.classes.GoodExtends;
-import edu.team8.classes.TicketInfo;
-import edu.team8.classes.Vip;
+import edu.team8.classes.*;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Vector;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by 帅 on 2016/1/6.
@@ -22,26 +17,27 @@ public class PosGUI extends JFrame implements ActionListener
 {
     private static final String[] vipList = {"","VIP001","VIP002","VIP003","VIP004","KONAN"};
 
-    private String barcodeText;
-    private String logText;
-
     private JPanel westPanel;
     private JPanel centerPanel;
     private JPanel southPanel;
+    private JPanel centerWestPanel;
     private JPanel centerEastPanel;
 
-    private JScrollPane tableScroll;
+    private GoodsTable goodsTable;
     private JScrollPane ticketScroll;
+    private JScrollPane logScroll;
 
     private JPanel vipcodeBorderPanel;
     private JPanel tableBorderPanel;
     private JPanel ticketBorderPanel;
+    private JPanel logBorderPanel;
+    private JPanel accountPanel;
 
-    private JTable itemTable;
+    private JLabel accountLabel;
 
     private JComboBox vipcode;
-    private JTextArea jta;
     private JTextArea ticketField;
+    private JTextArea logField;
 
     private JButton btn_1;
     private JButton btn_2;
@@ -66,6 +62,12 @@ public class PosGUI extends JFrame implements ActionListener
 
     private JButton countButton;
     private JButton printButton;
+    private JButton paperButton;
+
+    private Vip vipInfo;
+    private TicketInfo ticket;
+    private GoodList goodList;
+    private GetInfoInSQL sqlVisitor;
 
     public PosGUI(String title) {
         super(title);
@@ -74,9 +76,6 @@ public class PosGUI extends JFrame implements ActionListener
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }catch(Exception e){}
 
-        barcodeText = new String();
-        logText = new String();
-
         this.setLayout(new BorderLayout());                           //布局
         this.setSize(1280,720);                                       //窗体大小
         this.setLocationRelativeTo(null);                             //让窗体居中显示
@@ -84,6 +83,11 @@ public class PosGUI extends JFrame implements ActionListener
 
         init();//窗口初始化
 
+        goodList = new GoodList();
+        GetInfoInSQL.setWindow(this);
+        sqlVisitor= new GetInfoInSQL();
+        goodsTable.setGoodList(goodList);
+        PrintTicket.setBs(this);
     }
 
     private void init()
@@ -92,21 +96,28 @@ public class PosGUI extends JFrame implements ActionListener
         westPanel.setPreferredSize(new Dimension(200,0));
         southPanel=new JPanel(new GridLayout(1,3));
         centerPanel=new JPanel(new GridLayout(1,2));
+        centerWestPanel=new JPanel(new BorderLayout());
         centerEastPanel=new JPanel(new BorderLayout());
 
-        jta=new JTextArea();
-
-        tableScroll = new JScrollPane(itemTable);
+        goodsTable = new GoodsTable();
         tableBorderPanel = new JPanel(new GridLayout());
         tableBorderPanel.setBorder(BorderFactory.createTitledBorder ("已扫描商品"));
-        tableBorderPanel.add(tableScroll);
+        tableBorderPanel.add(goodsTable);
         centerEastPanel.add(tableBorderPanel,"Center");
 
         vipcode = new JComboBox(vipList);
+        vipcode.addActionListener(this);
         vipcodeBorderPanel = new JPanel(new GridLayout());
         vipcodeBorderPanel.setBorder(BorderFactory.createTitledBorder ("会员编号"));
         vipcodeBorderPanel.add(vipcode);
         centerEastPanel.add(vipcodeBorderPanel,"North");
+
+        accountLabel = new JLabel("待结算");
+        accountLabel.setFont(new Font("黑体",Font.BOLD,30));
+        accountPanel = new JPanel(new FlowLayout());
+        accountPanel.setBorder(BorderFactory.createTitledBorder ("结算信息"));
+        accountPanel.add(accountLabel);
+        centerEastPanel.add(accountPanel,"South");
 
         ticketField = new JTextArea();
         ticketField.setEditable(false);
@@ -114,11 +125,19 @@ public class PosGUI extends JFrame implements ActionListener
         ticketBorderPanel = new JPanel(new GridLayout());
         ticketBorderPanel.setBorder(BorderFactory.createTitledBorder ("小票打印"));
         ticketBorderPanel.add(ticketScroll);
-        centerPanel.add(ticketBorderPanel);
+        centerWestPanel.add(ticketBorderPanel,"Center");
+
+        logField = new JTextArea();
+        logField.setEditable(false);
+        logScroll =new JScrollPane(logField);
+        logBorderPanel = new JPanel(new GridLayout());
+        logBorderPanel.setPreferredSize(new Dimension(0,160));
+        logBorderPanel.setBorder(BorderFactory.createTitledBorder ("日志信息"));
+        logBorderPanel.add(logScroll);
+        centerWestPanel.add(logBorderPanel,"South");
 
         //将商品按钮添加到窗体中
         this.addItemButton();
-
 
         //结算按钮
         countButton=new JButton("结算");
@@ -130,11 +149,19 @@ public class PosGUI extends JFrame implements ActionListener
         printButton=new JButton("打印");
         printButton.setFont(new Font("幼圆", Font.BOLD,20));
         printButton.addActionListener(this);
+        printButton.setEnabled(false);
         southPanel.add(printButton);
+
+        //补纸按钮
+        paperButton=new JButton("补纸");
+        paperButton.setFont(new Font("幼圆", Font.BOLD,20));
+        paperButton.addActionListener(this);
+        southPanel.add(paperButton);
 
         this.add(westPanel,"West");
         this.add(southPanel,"South");
-        centerPanel.add(centerEastPanel,"East");
+        centerPanel.add(centerWestPanel);
+        centerPanel.add(centerEastPanel);
         this.add(centerPanel,"Center");
 
         this.setVisible(true);
@@ -266,124 +293,122 @@ public class PosGUI extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btn_1) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0000");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0000"));
         }
         if(e.getSource()==btn_2) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0001");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0001"));
         }
         if(e.getSource()==btn_3) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0002");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0002"));
         }
         if(e.getSource()==btn_4) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0003");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0003"));
         }
         if(e.getSource()==btn_5) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0004");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0004"));
         }
         if(e.getSource()==btn_6) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0005");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0005"));
         }
         if(e.getSource()==btn_7) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0006");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0006"));
         }
         if(e.getSource()==btn_8) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0007");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0007"));
         }
         if(e.getSource()==btn_9) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0008");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0008"));
         }
         if(e.getSource()==btn_10) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0009");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0009"));
         }
         if(e.getSource()==btn_11) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0010");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0010"));
         }
         if(e.getSource()==btn_12) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0011");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0011"));
         }
         if(e.getSource()==btn_13) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0012");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0012"));
         }
         if(e.getSource()==btn_14) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0013");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0013"));
         }
         if(e.getSource()==btn_15) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0014");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0014"));
         }
         if(e.getSource()==btn_16) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0015");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0015"));
         }
         if(e.getSource()==btn_17) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0016");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0016"));
         }
         if(e.getSource()==btn_18) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0017");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0017"));
         }
         if(e.getSource()==btn_19) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("ITEM0018");
+            goodList.addGood(sqlVisitor.findByBarcode("ITEM0018"));
         }
         if(e.getSource()==btn_20) {
-            if(jta.getText().length()!=0)
-                jta.append(",\n");
-            jta.append("APTX4869");
+            Good good = null;
+            good = sqlVisitor.findByBarcode("APTX4869");
+            if(good!=null)
+                goodList.addGood(good);
         }
         if(e.getSource()==countButton) {
-            barcodeText=jta.getText();
-            GetInfoInSQL.setWindow(this);
-            ArrayList<Good> goods = GetInfoInSQL.makeGoodList(barcodeText);
-            ArrayList<GoodExtends> ge= ChangeList.processChangeList(goods);
-            TicketInfo ticket = ChangeList.account(ge,new Vip("wewewe",200));
-            PrintTicket.PrintTicketList(ticket,this);
-         }
+            ticket = ChangeList.account(goodList.getGoods(),vipInfo,sqlVisitor);
+            if(ticket!=null) {
+                accountLabel.setText("需要收款: " + ticket.getPaidPrice() + "元");
+                countButton.setEnabled(false);
+                printButton.setEnabled(true);
+            }
+        }
+        if(e.getSource()==printButton)
+        {
+            if(ticket!=null) {
+                if(PrintTicket.PrintTicket(ticket)==-1){
+                    printLog("缺纸");
+                }else{
+                    countButton.setEnabled(true);
+                    printButton.setEnabled(false);
+                    goodList.clear();
+                    goodsTable.clear();
+                }
+            }
+            else
+                printLog("还未进行结算");
+        }
+        if(e.getSource()==paperButton)
+        {
+            PrintTicket.fullPaper();
+            ticketField.setText("");
+            printLog("已补充纸");
+        }
+        if(e.getSource()==vipcode)
+        {
+            String vipStr = vipcode.getSelectedItem().toString();
+            if(!vipStr.equals("")) {
+                vipInfo = sqlVisitor.findVipByCode(vipStr);
+            }else{
+                vipInfo = null;
+            }
+        }
+        goodsTable.showGoodList();
     }
 
     //日志信息接口
     public void printLog(String log)
     {
-        System.out.println(log);
+        logField.append(
+                new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]", Locale.CHINA).format(new Date())
+                +log+ "\n" );
+        logField.setCaretPosition(logField.getText().length());
     }
 
     //小票打印接口
     public void printReceipt(String receipt)
     {
         ticketField.append(receipt+ "\n" );
+        ticketField.setCaretPosition(ticketField.getText().length());
     }
 }

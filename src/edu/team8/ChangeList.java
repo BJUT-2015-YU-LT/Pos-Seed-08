@@ -1,17 +1,20 @@
 package edu.team8;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import edu.team8.classes.Good;
 import edu.team8.classes.GoodExtends;
 import edu.team8.classes.TicketInfo;
 import edu.team8.classes.Vip;
 
+import java.io.SyncFailedException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 啸宇 on 2016/1/6.
  */
-public interface ChangeList
+public class ChangeList
 {
     /**
      * 第三轮迭代,根据商品清单进行结算
@@ -19,7 +22,7 @@ public interface ChangeList
      * @param vipInfo
      * @return
      */
-    public static TicketInfo account(ArrayList<GoodExtends> goodList,Vip vipInfo)
+    public static TicketInfo account(ArrayList<GoodExtends> goodList,Vip vipInfo,GetInfoInSQL sqlVisitor)
     {
         TicketInfo ticket = new TicketInfo();
         ArrayList<GoodExtends> paidList = new ArrayList<GoodExtends>();
@@ -35,8 +38,10 @@ public interface ChangeList
                     break;
                 case Good.DISCOUNT:
                     if(null!=vipInfo){
+                        savedPrice+=good.getPrice()*(1-good.getVipDiscount());
                         good.setPrice(good.getPrice()*good.getVipDiscount());
                     }else{
+                        savedPrice+=good.getPrice()*(1-good.getDiscount());
                         good.setPrice(good.getPrice()*good.getDiscount());
                     }
                     break;
@@ -44,17 +49,40 @@ public interface ChangeList
                     GoodExtends savedGood = new GoodExtends(good);
                     //计算节省的商品个数
                     savedGood.setTotalCount(savedGood.getTotalCount()-savedGood.getPaidCount());
+                    savedPrice+=savedGood.getTotalCount()*savedGood.getPrice();
                     savedList.add(savedGood);
                     break;
             }
             paidList.add(new GoodExtends(good));
+            paidPrice+=good.getPrice()*good.getPaidCount();
         }
+        paidPrice=new BigDecimal(paidPrice).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue();
+        savedPrice=new BigDecimal(savedPrice).setScale(2,BigDecimal.ROUND_HALF_DOWN).doubleValue();
+        if(vipInfo != null){
+            sqlVisitor.addVipCredit(getCredit(paidPrice),vipInfo.getVipCode());
+            vipInfo = sqlVisitor.findVipByCode(vipInfo.getVipCode());
+        }
+
         ticket.setPaidList(paidList);
         ticket.setSavedList(savedList);
         ticket.setPaidPrice(paidPrice);
         ticket.setSavedPrice(savedPrice);
         ticket.setVipInfo(vipInfo);
         return ticket;
+    }
+
+    private static int getCredit(double paid){
+        int credit = 0;
+        if(paid>0){
+            if (paid<=200){
+                credit = (int) Math.floor(paid/5)*1;
+            }else if(paid<=500){
+                credit = (int) Math.floor(paid/5)*3;
+            }else{
+                credit = (int) Math.floor(paid/5)*5;
+            }
+        }
+        return credit;
     }
 
     /**

@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by wl on 2016/1/13.
  */
@@ -52,16 +50,8 @@ public class PrintTicketTest {
         info2.setPaidList(p2);
         info2.setSavedList(s2);
 
-        /*for(GoodExtends ge:t)
-        {
-            System.out.println("商品BarCode:   " + ge.getBarcode() + "   " + "名称:   " + ge.getName() + "   " +  //打印信息
-                    "数量:   " + ge.getTotalCount() + ge.getUnit() + ",   " + "单价:   " + ge.getPrice() + "   "
-                    + "小计:   " + ge.getTotalCount()*ge.getPrice());
-            sum+=  ge.getTotalCount()*ge.getPrice();
-        }
-        System.out.println("总计:" + sum);*/
         PosGUI pg = new PosGUI("test");
-        PrintTicket.PrintTicketList(info1,pg);
-
+        PrintTicket.setBs(pg);
+        PrintTicket.PrintTicket(info1);
     }
 }

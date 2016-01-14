@@ -148,15 +148,13 @@ public class GetInfoInSQL {
      * @param barcodeStrings
      * @return 含有重复的商品列表
      */
-    public ArrayList<Good> getItemInfo(String[] barcodeStrings)
-    {
-        if(barcodeStrings.length==0)
+    public ArrayList<Good> getItemInfo(String[] barcodeStrings) {
+        if (barcodeStrings.length == 0)
             return null;
         ArrayList<Good> goodArrayList = new ArrayList<Good>();
-        for(String barcode:barcodeStrings)
-        {
-            Good finded=findByBarcode(barcode);
-            if(finded!=null)
+        for (String barcode : barcodeStrings) {
+            Good finded = findByBarcode(barcode);
+            if (finded != null)
                 goodArrayList.add(finded);
         }
         return goodArrayList;

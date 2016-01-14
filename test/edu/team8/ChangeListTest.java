@@ -17,7 +17,7 @@ public class ChangeListTest {
     @Test
     public void testAccount() throws Exception {
         ArrayList<GoodExtends> list=new ArrayList<GoodExtends>();
-        Vip vip=new Vip("VIP0001",6);
+        Vip vip=new Vip("VIP001",6);
         GoodExtends good1 = new GoodExtends("ITEM000000","pear","斤",3.00,0.8,0.7,Good.NORMAL,3,2);
         /*String barcode, String name, String unit, double price ,
                        double discount ,double vipDiscount ,int preferType,
@@ -27,7 +27,8 @@ public class ChangeListTest {
         list.add(good1);
         list.add(good2);
         //vip=null;
+        GetInfoInSQL sqlVisitor = new GetInfoInSQL();
 
-        System.out.println(ChangeList.account(list,vip));
+        System.out.println(ChangeList.account(list,vip,sqlVisitor));
     }
 }
