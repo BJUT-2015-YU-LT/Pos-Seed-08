@@ -41,7 +41,7 @@ public class PrintTicket {
                         + df.format(ge.getPrice()) + "\t " + df.format(ge.getDiscount() * ge.getVipDiscount() * ge.getPaidCount() * ge.getPrice()));  //打印信息
                 n += ge.getTotalCount();                                                      //计算商品总数
             }
-            else if (ge.getPreferType() ==  Good.NORMAL){                           //商品不打折
+            else if (ge.getPreferType() ==  Good.NORMAL || ge.getPreferType() == Good.PROMOTION){                           //商品不打折
                 receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
                         + df.format(ge.getPrice()) + "\t " + df.format(ge.getPaidCount() * ge.getPrice()));  //打印信息
                 n += ge.getTotalCount();                                                      //计算商品总数
