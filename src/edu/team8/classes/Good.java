@@ -1,5 +1,7 @@
 package edu.team8.classes;
 
+import java.math.BigDecimal;
+
 /**
  * Created by 知昊 on 2016/1/6.
  * Modified by 知昊 on 2016/1/7 for 需求2
@@ -131,20 +133,17 @@ public class Good {
      */
     private void fixData()
     {
-        if(this.preferType==PROMOTION){
-            if(this.discount<=0 || this.discount==1)
-            {
-                this.preferType=NORMAL;
-                this.discount=1;
-            }
-            else if(this.discount <1)
-            {
+        if(this.discount<=0 || this.discount==1) {
+            this.discount = 1;
+            if(this.vipDiscount<=0 || this.vipDiscount==1) {
+                this.preferType = NORMAL;
+                this.vipDiscount = 1;
+            }else if(this.vipDiscount<1){
                 this.preferType=DISCOUNT;
             }
-            else if(this.discount>(int)this.discount)
-            {
-                this.discount=(int)this.discount;
-            }
+        }else if(this.discount>2){
+            this.preferType=PROMOTION;
+            this.discount=new BigDecimal(discount).setScale(0,BigDecimal.ROUND_FLOOR).doubleValue();
         }
     }
 

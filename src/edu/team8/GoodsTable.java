@@ -10,6 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.Vector;
 
 /**
@@ -55,28 +56,40 @@ public class GoodsTable extends JPanel
             row.add(good.getTotalCount());
             row.add(good.getUnit());
             row.add(String.format("%.2f", good.getPrice()));
-            row.add(good.getDiscount());
-            /*switch (good.getPreferType())
+            switch (good.getPreferType())
             {
                 case Good.NORMAL:
-                    row.add(good.getPrice());
+                    row.add("无");
                     break;
                 case Good.DISCOUNT:
-                    if(null!=vipInfo){
-                        good.setPrice(good.getPrice()*good.getVipDiscount());
+                    row.add(discountToString(good.getDiscount())+"/会员"+
+                            discountToString(good.getVipDiscount()));
+                    /*if(null!=vipInfo){
+                        good.setPrice(good.getPrice()*);
                     }else{
                         good.setPrice(good.getPrice()*good.getDiscount());
-                    }
+                    }*/
                     break;
                 case Good.PROMOTION:
-                    GoodExtends savedGood = new GoodExtends(good);
-                    //计算节省的商品个数
-                    savedGood.setTotalCount(savedGood.getTotalCount()-savedGood.getPaidCount());
-                    savedList.add(savedGood);
+                    row.add("买 " + String.format("%.0f",good.getDiscount()) + " 赠一");
                     break;
-            }*/
+            }
         }
         tableData.add(row);
+    }
+
+    private String discountToString(double discount)
+    {
+        String s = new String();
+
+        if(discount==1)return "无";
+        int decide = (int)(discount*100);
+        if(decide%10==0)
+            s += String.format("%.0f",discount*10);
+        else
+            s += String.format("%.0f",discount*100);
+        s+="折";
+        return s;
     }
 
     public void showGoodList()

@@ -30,8 +30,9 @@ public class ChangeList
         double paidPrice=0,savedPrice=0;
         int creditPoint=0;
 
-        for(GoodExtends good:goodList)
+        for(GoodExtends oldGood:goodList)
         {
+            GoodExtends good = new GoodExtends(oldGood);
             switch(good.getPreferType())
             {
                 case Good.NORMAL:
@@ -46,11 +47,14 @@ public class ChangeList
                     }
                     break;
                 case Good.PROMOTION:
-                    GoodExtends savedGood = new GoodExtends(good);
-                    //计算节省的商品个数
-                    savedGood.setTotalCount(savedGood.getTotalCount()-savedGood.getPaidCount());
-                    savedPrice+=savedGood.getTotalCount()*savedGood.getPrice();
-                    savedList.add(savedGood);
+                    int decide = good.getTotalCount()-good.getPaidCount();
+                    if(decide>0) {
+                        GoodExtends savedGood = new GoodExtends(good);
+                        //计算节省的商品个数
+                        savedGood.setTotalCount(decide);
+                        savedPrice += savedGood.getTotalCount() * savedGood.getPrice();
+                        savedList.add(savedGood);
+                    }
                     break;
             }
             paidList.add(new GoodExtends(good));
