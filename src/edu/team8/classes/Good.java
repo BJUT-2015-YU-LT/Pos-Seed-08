@@ -139,6 +139,7 @@ public class Good {
                 this.preferType = NORMAL;
                 this.vipDiscount = 1;
             }else if(this.vipDiscount<1){
+                if(this.preferType != PROMOTION)
                 this.preferType=DISCOUNT;
             }
         }else if(this.discount>2){
