@@ -356,8 +356,10 @@ public class PosGUI extends JFrame implements ActionListener
                 goodList.addGood(good);
         }
         if(e.getSource()==countButton) {
+            if(goodList.isEmpty())return;
             ticket = ChangeList.account(goodList.getGoods(),vipInfo,sqlVisitor);
             if(ticket!=null) {
+                setScannable(false);
                 accountLabel.setText("需要收款: " + ticket.getPaidPrice() + "元");
                 countButton.setEnabled(false);
                 printButton.setEnabled(true);
@@ -374,10 +376,9 @@ public class PosGUI extends JFrame implements ActionListener
                     goodList.clear();
                     goodsTable.clear();
                     accountLabel.setText("等待结算");
+                    setScannable(true);
                 }
             }
-            else
-                printLog("还未进行结算");
         }
         if(e.getSource()==paperButton)
         {
@@ -411,5 +412,30 @@ public class PosGUI extends JFrame implements ActionListener
     {
         ticketField.append(receipt+ "\n" );
         ticketField.setCaretPosition(ticketField.getText().length());
+    }
+
+    //商品按钮控制
+    public void setScannable(boolean b)
+    {
+        btn_1.setEnabled(b);
+        btn_2.setEnabled(b);
+        btn_3.setEnabled(b);
+        btn_4.setEnabled(b);
+        btn_5.setEnabled(b);
+        btn_6.setEnabled(b);
+        btn_7.setEnabled(b);
+        btn_8.setEnabled(b);
+        btn_9.setEnabled(b);
+        btn_10.setEnabled(b);
+        btn_11.setEnabled(b);
+        btn_12.setEnabled(b);
+        btn_13.setEnabled(b);
+        btn_14.setEnabled(b);
+        btn_15.setEnabled(b);
+        btn_16.setEnabled(b);
+        btn_17.setEnabled(b);
+        btn_18.setEnabled(b);
+        btn_19.setEnabled(b);
+        btn_20.setEnabled(b);
     }
 }

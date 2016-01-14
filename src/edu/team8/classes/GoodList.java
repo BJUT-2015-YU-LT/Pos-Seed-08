@@ -53,4 +53,6 @@ public class GoodList
     public void clear(){
         goods.clear();
     }
+
+    public boolean isEmpty(){return this.goods.size()==0;}
 }

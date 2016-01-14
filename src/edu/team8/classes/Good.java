@@ -45,7 +45,6 @@ public class Good {
         this.discount = g.discount;
         this.vipDiscount = g.vipDiscount;
         this.preferType = g.preferType;
-        fixData();
     }
 
     /**
@@ -67,7 +66,6 @@ public class Good {
         this.discount = discount;
         this.vipDiscount = vipDiscount;
         this.preferType = preferType;
-        fixData();
     }
 
     public String getBarcode()
@@ -126,26 +124,6 @@ public class Good {
 
     public void setPreferType(int preferType) {
         this.preferType = preferType;
-    }
-
-    /**
-     * 修正部分可能损坏的数据
-     */
-    private void fixData()
-    {
-        if(this.discount<=0 || this.discount==1) {
-            this.discount = 1;
-            if(this.vipDiscount<=0 || this.vipDiscount==1) {
-                this.preferType = NORMAL;
-                this.vipDiscount = 1;
-            }else if(this.vipDiscount<1){
-                if(this.preferType != PROMOTION)
-                this.preferType=DISCOUNT;
-            }
-        }else if(this.discount>2){
-            this.preferType=PROMOTION;
-            this.discount=new BigDecimal(discount).setScale(0,BigDecimal.ROUND_FLOOR).doubleValue();
-        }
     }
 
     /**

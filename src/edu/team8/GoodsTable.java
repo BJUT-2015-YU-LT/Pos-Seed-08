@@ -38,6 +38,7 @@ public class GoodsTable extends JPanel
             tableHeader.add("优惠");
         }
         table = new JTable(tableData,tableHeader);
+        table.setEnabled(false);
         scroll = new JScrollPane(table);
         this.add(scroll);
     }
@@ -64,11 +65,6 @@ public class GoodsTable extends JPanel
                 case Good.DISCOUNT:
                     row.add(discountToString(good.getDiscount())+"/会员"+
                             discountToString(good.getVipDiscount()));
-                    /*if(null!=vipInfo){
-                        good.setPrice(good.getPrice()*);
-                    }else{
-                        good.setPrice(good.getPrice()*good.getDiscount());
-                    }*/
                     break;
                 case Good.PROMOTION:
                     row.add("买 " + String.format("%.0f",good.getDiscount()) + " 赠一");
