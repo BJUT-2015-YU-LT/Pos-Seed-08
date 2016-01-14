@@ -20,7 +20,11 @@ public interface PrintTicket {
         DateFormat dft = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ", Locale.CHINA);       // 时间格式
 
         bs.printReceipt("\t                商店购物小票清单");                            //表头信息
-        bs.printReceipt("\t\t         打印时间：" + dft.format(d));                              //打印时间
+        if(ti.getVipInfo() != null){
+            bs.printReceipt("会员编号： " + ti.getVipInfo().getVipCode() + "   会员积分： " + ti.getVipInfo().getVipCredit() + "分");  //迭代三
+            bs.printReceipt("-------------------------------------------------------");
+        }
+        bs.printReceipt("打印时间：" + dft.format(d));                              //打印时间
         bs.printReceipt("=======================================================");
         bs.printReceipt("商品条码\t      名称\t 数量\t    单价(元)\t 小计(元)");
         for(GoodExtends ge:ti.getPaidList()) {
@@ -28,7 +32,7 @@ public interface PrintTicket {
                         + df.format(ge.getPrice()) + "\t " + df.format(ge.getPaidCount() * ge.getPrice()));  //打印信息
                 n += ge.getTotalCount();                                                      //计算商品总数
         }
-        if(ti.getSavedList() !=null){                                                           //有赠送商品时才打印相关赠送信息
+        if(ti.getSavedList() !=null){                                                           //有赠送商品时才打印相关赠送信息 迭代二
             bs.printReceipt("-------------------------------------------------------");                 //打印赠送商品
             bs.printReceipt("赠送商品：");
             for(GoodExtends ge:ti.getSavedList()) {
