@@ -6,7 +6,6 @@ import edu.team8.classes.TicketInfo;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -14,7 +13,7 @@ import java.util.Locale;
  * Created by 魏来 on 2016/1/13.
  */
 public interface PrintTicket {
-    public static void PrintTicketList(TicketInfo ti,BarcodeScanner bs){
+    public static void PrintTicketList(TicketInfo ti,PosGUI bs){
         int n = 0;
         Date d = new Date();                                                        //打印时间
         DecimalFormat df = new DecimalFormat("0.00");                              //保留两位小数格式

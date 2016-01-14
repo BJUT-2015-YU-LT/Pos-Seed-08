@@ -11,26 +11,50 @@ import java.util.List;
 /**
  * Created by 啸宇 on 2016/1/6.
  */
-public interface ChangeList {
-
-    public static ArrayList<GoodExtends> processChangeList(ArrayList<Good> list)
+public interface ChangeList
+{
+    /**
+     * 第三轮迭代,根据商品清单进行结算
+     * @param goodList
+     * @param vipInfo
+     * @return
+     */
+    public static TicketInfo account(ArrayList<GoodExtends> goodList,Vip vipInfo)
     {
-        ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
-        int i=-1;
-        for (Good g:list)
+        TicketInfo ticket = new TicketInfo();
+        ArrayList<GoodExtends> paidList = new ArrayList<GoodExtends>();
+        ArrayList<GoodExtends> savedList = new ArrayList<GoodExtends>();
+        double paidPrice=0,savedPrice=0;
+        int creditPoint=0;
+
+        for(GoodExtends good:goodList)
         {
-            if((i=list1.indexOf(g))>=0)
+            switch(good.getPreferType())
             {
-                list1.get(i).countUp();
+                case Good.NORMAL:
+                    break;
+                case Good.DISCOUNT:
+                    if(null!=vipInfo){
+                        good.setPrice(good.getPrice()*good.getVipDiscount());
+                    }else{
+                        good.setPrice(good.getPrice()*good.getDiscount());
+                    }
+                    break;
+                case Good.PROMOTION:
+                    GoodExtends savedGood = new GoodExtends(good);
+                    //计算节省的商品个数
+                    savedGood.setTotalCount(savedGood.getTotalCount()-savedGood.getPaidCount());
+                    savedList.add(savedGood);
+                    break;
             }
-            else
-            {
-                list1.add(new GoodExtends(g));
-                i=list1.indexOf(g);
-                list1.get(i).countUp();
-            }
+            paidList.add(new GoodExtends(good));
         }
-        return list1;
+        ticket.setPaidList(paidList);
+        ticket.setSavedList(savedList);
+        ticket.setPaidPrice(paidPrice);
+        ticket.setSavedPrice(savedPrice);
+        ticket.setVipInfo(vipInfo);
+        return ticket;
     }
 
     /**
@@ -63,49 +87,27 @@ public interface ChangeList {
     }
 
     /**
-     * 第三轮迭代
+     *  第一轮迭代
+     * @param list
+     * @return
      */
-    public static TicketInfo account(ArrayList<GoodExtends> goodList,Vip vipInfo)
+    public static ArrayList<GoodExtends> processChangeList(ArrayList<Good> list)
     {
-        TicketInfo ticket = new TicketInfo();
-        ArrayList<GoodExtends> paidList = new ArrayList<GoodExtends>();
-        ArrayList<GoodExtends> savedList = new ArrayList<GoodExtends>();
-        double paidPrice=0,savedPrice=0;
-        int creditPoint=0;
-
-        for(GoodExtends good:goodList)
+        ArrayList<GoodExtends> list1 = new ArrayList<GoodExtends>();
+        int i=-1;
+        for (Good g:list)
         {
-            switch(good.getPreferType())
+            if((i=list1.indexOf(g))>=0)
             {
-                case Good.NORMAL:
-                    paidList.add(new GoodExtends(good));
-                    break;
-                case Good.DISCOUNT:
-                    break;
-                case Good.PROMOTION:
-                    break;
+                list1.get(i).countUp();
             }
-          /* if(==Good.NORMAL)
+            else
             {
-                paidList.get(i).setPrice(good.getPrice());
+                list1.add(new GoodExtends(g));
+                i=list1.indexOf(g);
+                list1.get(i).countUp();
             }
-            else if(good.getPreferType()==Good.DISCOUNT)
-            {
-                if(vipInfo==null)
-                    paidList.get(i).setPrice(good.getPrice()*good.getDiscount());
-                else
-                    paidList.get(i).setPrice(good.getPrice()*good.getVipDiscount());
-            }
-            else if(good.getPreferType()==Good.PROMOTION)
-            {
-
-            }*/
         }
-        ticket.setPaidList(paidList);
-        ticket.setSavedList(savedList);
-        ticket.setPaidPrice(paidPrice);
-        ticket.setSavedPrice(savedPrice);
-        ticket.setCreditPoint(creditPoint);
-        return ticket;
+        return list1;
     }
 }

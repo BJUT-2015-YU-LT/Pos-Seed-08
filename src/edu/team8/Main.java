@@ -2,6 +2,6 @@ package edu.team8;
 
 public class Main {
     public static void main(String[] args) {
-        BarcodeScanner  c=new BarcodeScanner("Pos机");
+        PosGUI c=new PosGUI("Pos机");
     }
 }

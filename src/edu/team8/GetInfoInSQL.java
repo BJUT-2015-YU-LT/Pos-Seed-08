@@ -12,7 +12,7 @@ public class GetInfoInSQL {
     /**
      * 得到窗口对象以方便输出 成员变量访问
      */
-    private static BarcodeScanner window=null;
+    private static PosGUI window=null;
 
     //SQL地址 用户名 密码
     private static final String sqlUrl = "jdbc:mysql://qdm169548131.my3w.com:3306/qdm169548131_db"+
@@ -166,7 +166,7 @@ public class GetInfoInSQL {
      * 分配输出窗口
      * @param window
      */
-    public static void setWindow(BarcodeScanner window) {
+    public static void setWindow(PosGUI window) {
         GetInfoInSQL.window = window;
     }
 
