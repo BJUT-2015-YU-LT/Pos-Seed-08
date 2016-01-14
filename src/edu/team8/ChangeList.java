@@ -39,10 +39,10 @@ public class ChangeList
                     break;
                 case Good.DISCOUNT:
                     if(null!=vipInfo){
-                        savedPrice+=good.getPrice()*(1-good.getDiscount()*good.getVipDiscount());
+                        savedPrice+=good.getPrice()*(1-good.getDiscount()*good.getVipDiscount())*good.getPaidCount();
                         good.setPrice(good.getPrice()*good.getDiscount()*good.getVipDiscount());
                     }else{
-                        savedPrice+=good.getPrice()*(1-good.getDiscount());
+                        savedPrice+=good.getPrice()*(1-good.getDiscount())*good.getPaidCount();
                         good.setPrice(good.getPrice()*good.getDiscount());
                     }
                     break;
