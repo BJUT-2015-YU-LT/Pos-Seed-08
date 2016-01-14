@@ -15,6 +15,7 @@ public class GoodList
 
     public void addGood(Good good)
     {
+        if(null==good)return;
         int i = -1;
         if((i=goods.indexOf(good))<0) {
             GoodExtends ge = new GoodExtends(good);

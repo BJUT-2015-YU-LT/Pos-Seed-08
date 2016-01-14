@@ -6,9 +6,7 @@ import edu.team8.classes.GoodList;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Vector;
@@ -39,6 +37,7 @@ public class GoodsTable extends JPanel
         }
         table = new JTable(tableData,tableHeader);
         table.setEnabled(false);
+        table.getTableHeader().setReorderingAllowed(false);
         scroll = new JScrollPane(table);
         this.add(scroll);
     }

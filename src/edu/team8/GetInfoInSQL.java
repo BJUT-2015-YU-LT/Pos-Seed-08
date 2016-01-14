@@ -68,8 +68,7 @@ public class GetInfoInSQL {
             if(resultList.next()) {
                 String vipCode_1 = resultList.getString("vip_code");
                 int vipCredit = resultList.getInt("vip_credit");
-                Vip result = new Vip(vipCode_1,vipCredit);
-                return result;
+                return new Vip(vipCode_1,vipCredit);
             }else {
                 this.outputLog("不存在会员: "+vipCode);
             }
