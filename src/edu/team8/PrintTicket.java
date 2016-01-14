@@ -37,9 +37,16 @@ public class PrintTicket {
         receipt.add("商品条码\t      名称\t 数量\t    单价(元)\t 小计(元)");
         for(GoodExtends ge:ti.getPaidList()) {
             if(ge.getPreferType() == Good.DISCOUNT){                                //商品有折扣
-                receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
-                        + df.format(ge.getPrice()) + "\t " + df.format(ge.getDiscount() * ge.getVipDiscount() * ge.getPaidCount() * ge.getPrice()));  //打印信息
-                n += ge.getTotalCount();                                                      //计算商品总数
+                if(ti.getVipInfo() != null) {
+                    receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
+                            + df.format(ge.getPrice()) + "\t " + df.format(ge.getDiscount() * ge.getVipDiscount() * ge.getPaidCount() * ge.getPrice()));  //打印信息
+                    n += ge.getTotalCount();                                                      //计算商品总数
+                }
+                else if(ti.getVipInfo() == null){
+                    receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
+                            + df.format(ge.getPrice()) + "\t " + df.format(ge.getDiscount() * ge.getPaidCount() * ge.getPrice()));  //打印信息
+                    n += ge.getTotalCount();                                                      //计算商品总数
+                }
             }
             else if (ge.getPreferType() ==  Good.NORMAL || ge.getPreferType() == Good.PROMOTION){                           //商品不打折
                 receipt.add(ge.getBarcode() + "      " + ge.getName() + "\t " + ge.getTotalCount() + ge.getUnit() + "\t    "
