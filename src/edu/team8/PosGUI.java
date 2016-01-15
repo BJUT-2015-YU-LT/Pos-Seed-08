@@ -213,6 +213,7 @@ public class PosGUI extends JFrame implements MouseListener,ActionListener
                 vipInfo = null;
             }
         }
+        goodsTable.showGoodList();
     }
 
     //日志信息接口
